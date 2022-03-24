@@ -1,0 +1,1 @@
+export const altbaseUri = "https://api.altbase.com/api/"
