@@ -25,3 +25,23 @@ export const SearchPanelCms = () => {
         </div>
     )
 }
+
+export const SearchPanelUsers = () => {
+    return <div>SearchPanelUsers</div>
+}
+
+export const SearchPanelCoinCategory = () => {
+    return <div>SearchPanelCoinCategory</div>
+}
+
+export const SearchPanelCoins = () => {
+    return <div>SearchPanelCoins</div>
+}
+
+export const SearchPanelCoinNews = () => {
+    return <div>SearchPanelCoinNews</div>
+}
+
+export const SearchPanelTxBuyBnb = () => {
+    return <div>SearchPanelTxBuyBnb</div>
+}

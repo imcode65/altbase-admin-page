@@ -1,7 +1,7 @@
 import Logo from 'components/atoms/Logo';
 import MenuItem from 'components/atoms/MenuItem';
 import GradientText from 'components/atoms/GradientText';
-import { useLocation } from 'react-router';
+import { useLocation } from 'react-router-dom';
 import { useContext } from 'react';
 import { LayoutContext } from 'context/layoutContext';
 import { prefix, menuInfo } from 'constants/menuInfo';
@@ -17,8 +17,8 @@ const SideBar = () => {
             <div className=''>
                 <GradientText className='w-full flex justify-center mb-4' text='Welcome Admin' />
                 <ul>
-                { menuInfo.map((menuItem, id) => (
-                    <MenuItem to={prefix + menuItem.to} key={id} Icon={menuItem.Icon} text={menuItem.text} active={location.pathname === prefix + menuItem.to} />
+                { menuInfo.filter(val => val.breadCrumbActiveNum === 1).map((menuItem, id) => (
+                    <MenuItem to={prefix + menuItem.matchingUrl} key={id} Icon={menuItem.Icon} text={menuItem.text} active={location.pathname.startsWith(prefix + menuItem.matchingUrl)} />
                 )) }
                 </ul>
             </div>
