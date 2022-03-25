@@ -5,8 +5,6 @@ import Button2 from 'components/atoms/Button2';
 import EditorComponent from 'components/atoms/EditorComponent';
 
 const Edit = () => {
-    const location = useLocation();
-    console.log(location)
     return (
         <div className="p-4 bg-white mt-8">
             <div className="grid grid-cols-2 gap-4">

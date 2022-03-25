@@ -18,7 +18,7 @@ const SideBar = () => {
                 <GradientText className='w-full flex justify-center mb-4' text='Welcome Admin' />
                 <ul>
                 { menuInfo.filter(val => val.breadCrumbActiveNum === 1).map((menuItem, id) => (
-                    <MenuItem to={prefix + menuItem.matchingUrl} key={id} Icon={menuItem.Icon} text={menuItem.text} active={location.pathname.startsWith(prefix + menuItem.matchingUrl)} />
+                    <MenuItem to={prefix + menuItem.matchingUrl} key={id} Icon={menuItem.Icon} text={menuItem.text} active={location.pathname.startsWith(prefix + menuItem.matchingUrlSidebar)} />
                 )) }
                 </ul>
             </div>

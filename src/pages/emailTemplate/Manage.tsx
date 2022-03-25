@@ -1,14 +1,14 @@
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import DataTable from "components/organism/DataTable";
-import { ITable } from 'components/atoms/Table';
+import { IField } from 'components/atoms/Table';
 import { prefix } from "constants/menuInfo";
 import { SearchPanelEmailTemplate } from 'components/moleculars/SearchPanel';
 
 const Manage = () => {
     const navigate = useNavigate();
-    const [tableData, setTableData] = useState<ITable>({
-        fields: [{
+    const [tableFields, setTableFields] = useState<IField[]>([
+        {
             text: "Sr.no.",
             code: "sr_no"
         }, {
@@ -29,8 +29,10 @@ const Manage = () => {
         }, {
             text: "Action",
             code: "action"
-        }, ],
-        datas: [{
+        }, 
+    ]);
+    const [tableDatas, setTableDatas] = useState<any[]>([
+        {
             sr_no: 1,
             name: "Thank You Email",
             slug: "feedback_received",
@@ -44,15 +46,39 @@ const Manage = () => {
                 },
                 view: true,
                 viewHandler: (id: number) => {
-                    navigate(`${ prefix }/email-template/edit/${ id }`);
+                    navigate(`${ prefix }/email-template/view/${ id }`);
                 }
             }
-        }]
-    });
+        }
+    ]);
+    const [searchName, setSearchName] = useState<string>("");
+    const [searchSlug, setSearchSlug] = useState<string>("");
+    const [searchSubject, setSearchSubject] = useState<string>("");
+    const [searchFrom, setSearchFrom] = useState<string>("");
+    const [searchFromEmail, setSearchFromEmail] = useState<string>("");
+    const clear = () => {
+        setSearchName("");
+        setSearchSlug("");
+        setSearchSubject("");
+        setSearchFrom("");
+        setSearchFromEmail("");
+    };
     return (
         <div>
-            <SearchPanelEmailTemplate></SearchPanelEmailTemplate>
-            <DataTable tableData={tableData} />
+            <SearchPanelEmailTemplate
+                searchName={searchName}
+                setSearchName={setSearchName}
+                searchSlug={searchSlug}
+                setSearchSlug={setSearchSlug}
+                searchSubject={searchSubject}
+                setSearchSubject={setSearchSubject}
+                searchFrom={searchFrom}
+                setSearchFrom={setSearchFrom}
+                searchFromEmail={searchFromEmail}
+                setSearchFromEmail={setSearchFromEmail}
+                clear={clear}
+            ></SearchPanelEmailTemplate>
+            <DataTable fields={tableFields} datas={tableDatas} />
         </div>
     )
 }

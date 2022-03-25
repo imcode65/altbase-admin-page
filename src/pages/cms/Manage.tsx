@@ -1,13 +1,15 @@
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import DataTable from "components/organism/DataTable";
-import { ITable } from 'components/atoms/Table';
+import { IField } from 'components/atoms/Table';
 import { prefix } from "constants/menuInfo";
+import SwitchButton from 'components/atoms/SwitchButton';
+import { SearchPanelCms } from 'components/moleculars/SearchPanel';
 
 const Manage = () => {
     const navigate = useNavigate();
-    const [tableData, setTableData] = useState<ITable>({
-        fields: [{
+    const [tableFields, setTableFields] = useState<IField[]>([
+        {
             text: "Sr.no.",
             code: "sr_no"
         }, {
@@ -22,30 +24,46 @@ const Manage = () => {
         }, {
             text: "Action",
             code: "action"
-        }, ],
-        datas: [{
+        }, 
+    ])
+    const [tableDatas, setTableDatas] = useState<any[]>([
+        {
             sr_no: 1,
             title: "Privacy Policy",
             slug: "privacy_policy",
-            status: {
-                changeHandler: async (val: boolean) => {
-                    return val
-                },
-            },
+            status: <SwitchButton onChangeHandler={async (x: boolean) => {
+                return x;
+            }} confirming />,
             action: {
                 edit: true,
                 editHandler: (id: number) => {
-                    navigate(`${ prefix }/email-template/edit/${ id }`);
+                    navigate(`${ prefix }/cms/edit/${ id }`);
                 },
                 view: true,
                 viewHandler: (id: number) => {
-                    navigate(`${ prefix }/email-template/edit/${ id }`);
+                    navigate(`${ prefix }/cms/view/${ id }`);
                 }
             }
-        }]
-    });
+        }
+    ]);
+    const [searchName, setSearchName] = useState<string>("");
+    const [searchSlug, setSearchSlug] = useState<string>("");
+    const [searchStatus, setSearchStatus] = useState<string>("Select Status");
+    const clear = () => {
+        setSearchName("");
+        setSearchSlug("");
+        setSearchStatus("Select Status");
+    };
     return (
-        <DataTable tableData={tableData} />
+        <div>
+            <SearchPanelCms
+                searchName={searchName}
+                searchSlug={searchSlug}
+                searchStatus={searchStatus}
+                clear={clear}
+            />
+            <DataTable fields={tableFields} datas={tableDatas} />
+        </div>
     )
 }
 

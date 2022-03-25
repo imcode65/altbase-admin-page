@@ -1,13 +1,15 @@
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import DataTable from "components/organism/DataTable";
-import { ITable } from 'components/atoms/Table';
+import { IField } from 'components/atoms/Table';
 import { prefix } from "constants/menuInfo";
+import SwitchButton from 'components/atoms/SwitchButton';
+import { SearchPanelUsers } from 'components/moleculars/SearchPanel';
 
 const Manage = () => {
     const navigate = useNavigate();
-    const [tableData, setTableData] = useState<ITable>({
-        fields: [{
+    const [tableFields, setTableFields] = useState<IField[]>(
+        [{
             text: "Sr.no",
             code: "sr_no"
         }, {
@@ -31,22 +33,20 @@ const Manage = () => {
         }, {
             text: "Action",
             code: "action"
-        }, ],
-        datas: [{
+        }, 
+    ])
+    const [tableData, setTableData] = useState<any[]>([
+        {
             sr_no: 1,
             email: "Mrstanley1993@gmail.com",
             invitation_code: "3g6mocv2",
-            email_verified: {
-                changeHandler: async (val: boolean) => {
-                    return val
-                }
-            },
-            _2fa_status: <span>Inactive</span>,
-            status: {
-                changeHandler: async (val: boolean) => {
-                    return val
-                },
-            },
+            email_verified: <SwitchButton onChangeHandler={async (x: boolean) => {
+                return x;
+            }} confirming />,
+            _2fa_status: <span className="bg-color-09 rounded text-white text-sm font-bold px-1">Inactive</span>,
+            status: <SwitchButton onChangeHandler={async (x: boolean) => {
+                return x;
+            }} confirming />,
             invited_by: "ADMIN",
             action: {
                 edit: true,
@@ -58,10 +58,13 @@ const Manage = () => {
                     navigate(`${ prefix }/users/edit/${ id }`);
                 }
             }
-        }]
-    });
+        }
+    ]);
     return (
-        <DataTable tableData={tableData} />
+        <div>
+            <SearchPanelUsers />
+            <DataTable fields={tableFields} datas={tableData} />
+        </div>
     )
 }
 

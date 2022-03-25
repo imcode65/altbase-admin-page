@@ -9,7 +9,7 @@ interface IButton1 {
 
 const Button1: FC<IButton1> = ({ className="", text="", rounded=false, onClick=()=>{} }) => {
     return (
-        <div onClick={onClick} className={`${className} p-2 ${ rounded ? "rounded-full" : "rounded-md" } flex justify-center items-center font-semibold text-md text-white bg-color-20 hover:bg-black transition-all cursor-pointer active:ring-2 active:ring-black`}>{text}</div>
+        <div onClick={onClick} className={`${className} p-2 ${ rounded ? "rounded-full" : "rounded" } flex justify-center items-center font-sm text-base text-white bg-color-20 hover:bg-black transition-all cursor-pointer active:ring-0 active:ring-black py-1`}>{text}</div>
     )
 }
 

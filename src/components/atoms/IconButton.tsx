@@ -4,11 +4,13 @@ import { IIcon } from 'components/icons/IIcon';
 
 interface IIconButton {
     Icon?: FC<IIcon>;
+    className?: string;
+    onAddLinks?: () => void;
 }
 
-const IconButton: FC<IIconButton> = ({ Icon=IconRefresh }) => {
+const IconButton: FC<IIconButton> = ({ Icon=IconRefresh, className="", onAddLinks = () => {} }) => {
     return (
-        <button className='w-8 h-8 rounded border border-color-20 flex justify-center items-center hover:bg-color-20 hover:text-white transition'>
+        <button onClick={onAddLinks} className={`w-8 h-8 rounded border border-color-20 flex justify-center items-center hover:bg-color-20 hover:text-white transition ${className}`}>
             <Icon />
         </button>
     )

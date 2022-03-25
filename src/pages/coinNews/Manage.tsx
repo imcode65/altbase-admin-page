@@ -1,13 +1,15 @@
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import DataTable from "components/organism/DataTable";
-import { ITable } from 'components/atoms/Table';
+import { IField } from 'components/atoms/Table';
 import { prefix } from "constants/menuInfo";
+import SwitchButton from 'components/atoms/SwitchButton';
+import { SearchPanelCoinNews } from 'components/moleculars/SearchPanel';
 
 const Manage = () => {
     const navigate = useNavigate();
-    const [tableData, setTableData] = useState<ITable>({
-        fields: [{
+    const [tableFields, setTableFields] = useState<IField[]>([
+        {
             text: "Sr.no.",
             code: "sr_no"
         }, {
@@ -22,27 +24,30 @@ const Manage = () => {
         }, {
             text: "Action",
             code: "action"
-        }, ],
-        datas: [{
+        }, 
+    ]);
+    const [tableDatas, setTableDatas] = useState<any[]>([
+        {
             sr_no: 1,
             title: "Thank You Email",
             coin: "feedback_received",
-            status: {
-                changeHandler: async (val: boolean) => {
-                    return val
-                },
-            },
+            status: <SwitchButton onChangeHandler={async (x: boolean) => {
+                return x;
+            }} confirming />,
             action: {
                 edit: false,
                 view: true,
                 viewHandler: (id: number) => {
-                    navigate(`${ prefix }/coins/view/${ id }`);
+                    navigate(`${ prefix }/coin-news/view/${ id }`);
                 },
             }
-        }]
-    });
+        }
+    ]);
     return (
-        <DataTable tableData={tableData} />
+        <div>
+            <SearchPanelCoinNews />
+            <DataTable fields={tableFields} datas={tableDatas} />
+        </div>
     )
 }
 

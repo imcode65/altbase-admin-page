@@ -1,13 +1,13 @@
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import DataTable from "components/organism/DataTable";
-import { ITable } from 'components/atoms/Table';
+import { IField } from 'components/atoms/Table';
 import { prefix } from "constants/menuInfo";
 
 const TxBuyBnbIndex = () => {
     const navigate = useNavigate();
-    const [tableData, setTableData] = useState<ITable>({
-        fields: [{
+    const [tableFields, setTableFields] = useState<IField[]>([
+        {
             text: "Sr.no.",
             code: "sr_no"
         }, {
@@ -22,8 +22,10 @@ const TxBuyBnbIndex = () => {
         }, {
             text: "Action",
             code: "action"
-        }, ],
-        datas: [{
+        }, 
+    ]);
+    const [tableDatas, setTableDatas] = useState<any[]>([
+        {
             sr_no: 1,
             email: "Thank You Email",
             payment_id: "feedback_received",
@@ -31,12 +33,12 @@ const TxBuyBnbIndex = () => {
             action: {
                 view: true,
                 viewHandler: (id: number) => {
-                    navigate(`${ prefix }/transaction-history/buy-bnb/edit/${ id }`);
+                    navigate(`${ prefix }/transaction-history/buy-bnb/details/${ id }`);
                 }
             }
-        }]
-    });
-    return (<DataTable tableData={tableData} />)
+        }
+    ]);
+    return (<DataTable fields={tableFields} datas={tableDatas} />)
 }
 
 export default TxBuyBnbIndex;
