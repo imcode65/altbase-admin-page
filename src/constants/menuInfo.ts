@@ -162,7 +162,7 @@ export const menuInfo = [{
     matchingUrlSidebar: "/coins",
     breadCrumb: ["Dashboard", "Manage Coins", "Edit"],
     breadCrumbActiveNum: 2,
-    breadCrumbTitle: "Manage Coins",
+    breadCrumbTitle: "Edit Coins",
 }, {
     Icon: IconEmail,
     text: "Coins",
@@ -171,7 +171,7 @@ export const menuInfo = [{
     matchingUrlSidebar: "/coins",
     breadCrumb: ["Dashboard", "Manage Coins", "View"],
     breadCrumbActiveNum: 2,
-    breadCrumbTitle: "Manage Coins",
+    breadCrumbTitle: "View Coin Details",
 }, {
     Icon: IconEmail,
     text: "Coin News",
