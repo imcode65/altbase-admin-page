@@ -1,8 +1,11 @@
 import { useState } from "react";
+import { useNavigate } from "react-router-dom";
 import DataTable from "components/organism/DataTable";
 import { ITable } from 'components/atoms/Table';
+import { prefix } from "constants/menuInfo";
 
 const Manage = () => {
+    const navigate = useNavigate();
     const [tableData, setTableData] = useState<ITable>({
         fields: [{
             text: "Sr.no.",
@@ -11,29 +14,42 @@ const Manage = () => {
             text: "Name",
             code: "name"
         }, {
-            text: "Slug",
-            code: "slug"
+            text: "Symbol",
+            code: "symbol"
         }, {
-            text: "Subject",
-            code: "subject"
+            text: "Coin Category",
+            code: "coin_category"
         }, {
-            text: "From",
-            code: "from"
+            text: "Buy Creteria (100x)",
+            code: "buy_creteria"
         }, {
-            text: "From Mail",
-            code: "from_mail"
+            text: "Status",
+            code: "status"
         }, {
             text: "Action",
             code: "action"
         }, ],
         datas: [{
             sr_no: 1,
-            name: "Thank You Email",
-            slug: "feedback_received",
-            subject: "Altbase Feedback Request",
-            from: "<%=closing_text%>",
-            from_mail: "info@altbase.com",
-            action: ""
+            name: "Tether USD",
+            symbol: "USDT",
+            coin_category: "Featured Coin",
+            buy_creteria: "0",
+            status: {
+                changeHandler: async (val: boolean) => {
+                    return val
+                },
+            },
+            action: {
+                edit: true,
+                editHandler: (id: number) => {
+                    navigate(`${ prefix }/coins/edit/${ id }`);
+                },
+                view: true,
+                viewHandler: (id: number) => {
+                    navigate(`${ prefix }/coins/view/${ id }`);
+                },
+            }
         }]
     });
     return (

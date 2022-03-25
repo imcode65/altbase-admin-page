@@ -1,8 +1,12 @@
 import { useState } from "react";
+import { useNavigate } from "react-router-dom";
 import DataTable from "components/organism/DataTable";
 import { ITable } from 'components/atoms/Table';
+import { prefix } from "constants/menuInfo";
+import { SearchPanelEmailTemplate } from 'components/moleculars/SearchPanel';
 
 const Manage = () => {
+    const navigate = useNavigate();
     const [tableData, setTableData] = useState<ITable>({
         fields: [{
             text: "Sr.no.",
@@ -33,11 +37,23 @@ const Manage = () => {
             subject: "Altbase Feedback Request",
             from: "<%=closing_text%>",
             from_mail: "info@altbase.com",
-            action: ""
+            action: {
+                edit: true,
+                editHandler: (id: number) => {
+                    navigate(`${ prefix }/email-template/edit/${ id }`);
+                },
+                view: true,
+                viewHandler: (id: number) => {
+                    navigate(`${ prefix }/email-template/edit/${ id }`);
+                }
+            }
         }]
     });
     return (
-        <DataTable tableData={tableData} />
+        <div>
+            <SearchPanelEmailTemplate></SearchPanelEmailTemplate>
+            <DataTable tableData={tableData} />
+        </div>
     )
 }
 

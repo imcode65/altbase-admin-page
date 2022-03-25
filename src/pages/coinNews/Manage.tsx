@@ -1,39 +1,44 @@
 import { useState } from "react";
+import { useNavigate } from "react-router-dom";
 import DataTable from "components/organism/DataTable";
 import { ITable } from 'components/atoms/Table';
+import { prefix } from "constants/menuInfo";
 
 const Manage = () => {
+    const navigate = useNavigate();
     const [tableData, setTableData] = useState<ITable>({
         fields: [{
             text: "Sr.no.",
             code: "sr_no"
         }, {
-            text: "Name",
-            code: "name"
+            text: "Title",
+            code: "title"
         }, {
-            text: "Slug",
-            code: "slug"
+            text: "Coin",
+            code: "coin"
         }, {
-            text: "Subject",
-            code: "subject"
-        }, {
-            text: "From",
-            code: "from"
-        }, {
-            text: "From Mail",
-            code: "from_mail"
+            text: "Status",
+            code: "status"
         }, {
             text: "Action",
             code: "action"
         }, ],
         datas: [{
             sr_no: 1,
-            name: "Thank You Email",
-            slug: "feedback_received",
-            subject: "Altbase Feedback Request",
-            from: "<%=closing_text%>",
-            from_mail: "info@altbase.com",
-            action: ""
+            title: "Thank You Email",
+            coin: "feedback_received",
+            status: {
+                changeHandler: async (val: boolean) => {
+                    return val
+                },
+            },
+            action: {
+                edit: false,
+                view: true,
+                viewHandler: (id: number) => {
+                    navigate(`${ prefix }/coins/view/${ id }`);
+                },
+            }
         }]
     });
     return (

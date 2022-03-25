@@ -1,8 +1,11 @@
 import { useState } from "react";
+import { useNavigate } from "react-router-dom";
 import DataTable from "components/organism/DataTable";
 import { ITable } from 'components/atoms/Table';
+import { prefix } from "constants/menuInfo";
 
 const Manage = () => {
+    const navigate = useNavigate();
     const [tableData, setTableData] = useState<ITable>({
         fields: [{
             text: "Sr.no.",
@@ -31,9 +34,13 @@ const Manage = () => {
             },
             action: {
                 edit: true,
-                editHandler: () => {},
+                editHandler: (id: number) => {
+                    navigate(`${ prefix }/email-template/edit/${ id }`);
+                },
                 view: true,
-                viewHandler: () => {}
+                viewHandler: (id: number) => {
+                    navigate(`${ prefix }/email-template/edit/${ id }`);
+                }
             }
         }]
     });
