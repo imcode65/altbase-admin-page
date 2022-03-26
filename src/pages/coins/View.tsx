@@ -3,6 +3,7 @@ import { useNavigate } from 'react-router-dom';
 import LabelComponent from 'components/atoms/LabelComponent';
 import Button2 from 'components/atoms/Button2';
 import { prefix } from "constants/menuInfo";
+import XLogo from 'assets/imgs/XLogo.png';
 
 const View = () => {
     const navigate = useNavigate();
@@ -12,8 +13,8 @@ const View = () => {
     const [category, setCategory] = useState<string>("Tether USD");
     const [routerPathAddress, setRouterPathAddress] = useState<string>("0xbb4cdb9cbd36b01bd1cbaebf2de08d9173bc095c,0x55d398326f99059ff775485246999027b3197955");
     const [routerAddressVersion, setRouterAddressVersion] = useState<string>("V1");
-    const [capUrl, setCapUrl] = useState<string>("https://coinmarketcap.com/currencies/tether/");
-    const [status, setStatus] = useState<string>("Active");
+    const [capUrl, setCapUrl] = useState<string>("");
+    const [status, setStatus] = useState<boolean>(true);
     const [criteria, setCriteria] = useState<string>("0");
     const [createdAt, setCreatedAt] = useState<string>("Mar 16, 2022, 9:14:10 AM");
     const [socialMediaLink, setSocialMediaLink] = useState<string>("NA");
@@ -25,7 +26,10 @@ const View = () => {
     return (
         <div className="p-4 bg-white mt-8">
             <div className="grid grid-cols-2">
-                <LabelComponent title="Tether USD:" text={url}></LabelComponent>
+                <div className="flex">
+                    <img className='h-8 m-2 rounded-md overflow-hidden' src={XLogo} alt="XLogo" />
+                    <LabelComponent title="Tether USD:" text={"USDT"}></LabelComponent>
+                </div>
                 <LabelComponent title="Tether USD:" text={url}></LabelComponent>
             </div>
             <LabelComponent title="About" text={text}></LabelComponent>
@@ -34,9 +38,9 @@ const View = () => {
                 <LabelComponent title="Contract Address" text={address}></LabelComponent>
                 <LabelComponent title="Router Address Version" text={routerAddressVersion}></LabelComponent>
                 <LabelComponent title="Router Path Address" text={routerPathAddress}></LabelComponent>
-                <LabelComponent title="Coin market cap URL" text={capUrl}></LabelComponent>
-                <LabelComponent title="Status" text={status}></LabelComponent>
-                <LabelComponent title="Buy Criteria (100x)" text={status}></LabelComponent>
+                <LabelComponent title="Coin market cap URL" text={capUrl} bage_text={`${capUrl === "" ? 'no': ''}`} bage_class={`${capUrl === "" ? 'bg-red-500': ''}`}></LabelComponent>
+                <LabelComponent title="Status" bage_text={`${status ? 'active': 'Inactive'}`} bage_class={`${status ? 'bg-green-500': 'bg-red-500'}`} ></LabelComponent>
+                <LabelComponent title="Buy Criteria (100x)" text={criteria}></LabelComponent>
                 <LabelComponent title="Created At" text={createdAt}></LabelComponent>
                 <LabelComponent title="Social Media Links" text={socialMediaLink}></LabelComponent>
             </div>

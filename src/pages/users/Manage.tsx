@@ -55,7 +55,7 @@ const Manage = () => {
                 },
                 view: true,
                 viewHandler: (id: number) => {
-                    navigate(`${ prefix }/users/edit/${ id }`);
+                    navigate(`${ prefix }/users/view/${ id }`);
                 }
             }
         }
