@@ -3,11 +3,11 @@ import { v4 as uuidv4 } from 'uuid';
 import IconScroll from 'components/icons/IconScroll';
 
 interface ISelect2 {
-    list?: string[] | number[];
+    list?: string[];
     label?: string;
     id?: string;
-    value?: string | number;
-    onChangeHandler?: (x: string | number) => void;
+    value?: string;
+    onChangeHandler?: (x: string) => void;
 }
 
 const Select2: FC<ISelect2> = ({ list=[], label="", id=uuidv4(), value="", onChangeHandler=()=>{} }) => {
@@ -18,7 +18,7 @@ const Select2: FC<ISelect2> = ({ list=[], label="", id=uuidv4(), value="", onCha
                 <select 
                     className='border border-color-13 pl-3 pr-6 py-1 rounded appearance-none outline-none relative h-full w-full'
                     id={id}
-                    defaultValue={value}
+                    value={value}
                     onChange={e => onChangeHandler(e.target.value)}
                 >
                 { list.map((item, id) => (

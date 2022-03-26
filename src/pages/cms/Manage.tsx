@@ -58,8 +58,11 @@ const Manage = () => {
         <div>
             <SearchPanelCms
                 searchName={searchName}
+                setSearchName={setSearchName}
                 searchSlug={searchSlug}
+                setSearchSlug={setSearchSlug}
                 searchStatus={searchStatus}
+                setSearchStatus={setSearchStatus}
                 clear={clear}
             />
             <DataTable fields={tableFields} datas={tableDatas} />

@@ -60,9 +60,33 @@ const Manage = () => {
             }
         }
     ]);
+    const [searchName, setSearchName] = useState<string>("");
+    const [searchEmail, setSearchEmail] = useState<string>("");
+    const [searchEmailVerification, setSearchEmailVerification] = useState<string>("");
+    const [search2Factor, setSearch2Factor] = useState<string>("");
+    const [searchStatus, setSearchStatus] = useState<string>("");
+    const clear = () => {
+        setSearchName("");
+        setSearchEmail("");
+        setSearchEmailVerification("");
+        setSearch2Factor("");
+        setSearchStatus("");
+    };
     return (
         <div>
-            <SearchPanelUsers />
+            <SearchPanelUsers
+                searchName={searchName}
+                setSearchName={setSearchName}
+                searchEmail={searchEmail}
+                setSearchEmail={setSearchEmail}
+                searchEmailVerification={searchEmailVerification}
+                setSearchEmailVerification={setSearchEmailVerification}
+                search2Factor={search2Factor}
+                setSearch2Factor={setSearch2Factor}
+                searchStatus={searchStatus}
+                setSearchStatus={setSearchStatus}
+                clear={clear}
+            />
             <DataTable fields={tableFields} datas={tableData} />
         </div>
     )

@@ -1,11 +1,8 @@
 import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import LabelComponent from 'components/atoms/LabelComponent';
-import Button2 from 'components/atoms/Button2';
 import BasicInformation from 'pages/users/BasicInformation';
 import Wallet from 'pages/users/Wallet';
 import InviteFriends from 'pages/users/InviteFriends';
-import { prefix } from "constants/menuInfo";
 
 const View = () => {
     const navigate = useNavigate();

@@ -11,7 +11,7 @@ interface ISelect2 {
 const Select2: FC<ISelect2> = ({ list=[], label="", id=uuidv4() }) => {
     return (
         <div className='flex flex-col'>
-            <label className='mr-2 font-semibold text-black w-full text-sm' htmlFor={id}>{label}</label>
+            <label className='mr-2 font-bold text-black w-full text-sm' htmlFor={id}>{label}</label>
             <div className='relative h-full w-full'>
                 <select className='border border-color-13 pl-3 pr-6 py-1 rounded appearance-none outline-none relative h-full w-full' id={id}>
                 { 

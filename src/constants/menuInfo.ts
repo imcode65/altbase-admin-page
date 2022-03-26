@@ -99,7 +99,7 @@ export const menuInfo = [{
     matchingUrlSidebar: "/users",
     breadCrumb: ["Dashboard", "Manage Users", "Add"],
     breadCrumbActiveNum: 2,
-    breadCrumbTitle: "Manage Users",
+    breadCrumbTitle: "Add Users",
 }, {
     Icon: IconEmail,
     text: "Users",
@@ -135,7 +135,16 @@ export const menuInfo = [{
     matchingUrlSidebar: "/coin-category",
     breadCrumb: ["Dashboard", "Manage Coin Category", "Edit"],
     breadCrumbActiveNum: 2,
-    breadCrumbTitle: "Manage Coin Category",
+    breadCrumbTitle: "Edit Coin Category",
+}, {
+    Icon: IconEmail,
+    text: "Coin Category",
+    to: ["/dashboard", "/coin-category/manage"],
+    matchingUrl: "/coin-category/add",
+    matchingUrlSidebar: "/coin-category",
+    breadCrumb: ["Dashboard", "Manage Coin Category", "Edit"],
+    breadCrumbActiveNum: 2,
+    breadCrumbTitle: "Add Coin Category",
 }, {
     Icon: IconEmail,
     text: "Coins",
@@ -153,7 +162,7 @@ export const menuInfo = [{
     matchingUrlSidebar: "/coins",
     breadCrumb: ["Dashboard", "Manage Coins", "Add"],
     breadCrumbActiveNum: 2,
-    breadCrumbTitle: "Manage Coins",
+    breadCrumbTitle: "Add Coin",
 }, {
     Icon: IconEmail,
     text: "Coins",
@@ -189,7 +198,7 @@ export const menuInfo = [{
     matchingUrlSidebar: "/coin-news",
     breadCrumb: ["Dashboard", "Manage Coin News", "Add"],
     breadCrumbActiveNum: 2,
-    breadCrumbTitle: "Manage Coin News",
+    breadCrumbTitle: "Add Coin News",
 }, {
     Icon: IconEmail,
     text: "Coin News",
@@ -198,7 +207,7 @@ export const menuInfo = [{
     matchingUrlSidebar: "/coin-news",
     breadCrumb: ["Dashboard", "Manage Coin News", "Edit"],
     breadCrumbActiveNum: 2,
-    breadCrumbTitle: "Manage Coin News",
+    breadCrumbTitle: "Edit Coin News",
 }, {
     Icon: IconEmail,
     text: "Coin News",
@@ -207,7 +216,7 @@ export const menuInfo = [{
     matchingUrlSidebar: "/coin-news",
     breadCrumb: ["Dashboard", "Manage Coin News", "View"],
     breadCrumbActiveNum: 2,
-    breadCrumbTitle: "Manage Coin News",
+    breadCrumbTitle: "View Coin News",
 }, {
     Icon: IconEmail,
     text: "Notifications",
@@ -231,8 +240,8 @@ export const menuInfo = [{
     text: "Transaction History - Buy BNB",
     to: ["/dashboard", "/transaction-history/buy-bnb"],
     matchingUrl: "/transaction-history/buy-bnb/details",
-    matchingUrlSidebar: "/transaction-history/buy-bnb",
+    matchingUrlSidebar: "/transaction-history/buy-bnb/details",
     breadCrumb: ["Dashboard", "Manage Buy BNB Transaction History", "Details"],
     breadCrumbActiveNum: 2,
-    breadCrumbTitle: "Manage Buy BNB Transaction History",
+    breadCrumbTitle: "View Buy BNB Details",
 }, ];

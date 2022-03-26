@@ -39,9 +39,21 @@ const Manage = () => {
             }
         }
     ]);
+    const [searchTitle, setSearchTitle] = useState<string>("");
+    const [searchStatus, setSearchStatus] = useState<string>("");
+    const clear = () => {
+        setSearchTitle("");
+        setSearchStatus("");
+    };
     return (
         <div>
-            <SearchPanelCoinCategory />
+            <SearchPanelCoinCategory
+                searchTitle={searchTitle}
+                setSearchTitle={setSearchTitle}
+                searchStatus={searchStatus}
+                setSearchStatus={setSearchStatus}
+                clear={clear}
+            />
             <DataTable fields={tableFields} datas={tableDatas} />
         </div>
     )

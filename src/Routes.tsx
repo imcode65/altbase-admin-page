@@ -25,6 +25,7 @@ import UsersView from 'pages/users/View';
 import CoinCategory from 'pages/coinCategory/Index';
 import CoinCategoryManage from 'pages/coinCategory/Manage';
 import CoinCategoryEdit from 'pages/coinCategory/Edit';
+import CoinCategoryAdd from 'pages/coinCategory/Add';
 import Coins from 'pages/coins/Index';
 import CoinsManage from 'pages/coins/Manage';
 import CoinsAdd from 'pages/coins/Add';
@@ -78,6 +79,7 @@ const AppRoutes = () => {
           <Route path='coin-category' element={<CoinCategory />}>
             <Route path='manage' element={<CoinCategoryManage />} />
             <Route path='edit/:id' element={<CoinCategoryEdit />} />
+            <Route path='add' element={<CoinCategoryAdd />} />
           </Route>
           <Route path='coins' element={<Coins />}>
             <Route path='manage' element={<CoinsManage />} />

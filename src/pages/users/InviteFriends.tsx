@@ -13,9 +13,9 @@ const InviteFriends = () => {
     
     return (
         <div className="p-4 bg-white">
-        <div className='w-full flex justify-center mt-8 col-span-3'>
-            <Button2 className='w-32' text='Back' onClick={() => onBack()}/>
-        </div>
+            <div className='w-full flex justify-center mt-8 col-span-3'>
+                <Button2 className='w-32' text='Back' onClick={() => onBack()}/>
+            </div>
         </div>
     )
 }

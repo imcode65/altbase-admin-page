@@ -3,13 +3,11 @@ import { useNavigate } from 'react-router-dom';
 import LabelInput1 from 'components/atoms/LabelInput1';
 import Button2 from 'components/atoms/Button2';
 import Button1 from 'components/atoms/Button1';
-import Select3 from 'components/atoms/Select3';
 import { prefix } from "constants/menuInfo";
 
 const Add = () => {
     const navigate = useNavigate();
-    const [contactAddress, setContactAddress] = useState<string>("");
-    const [pancake, setPancake] = useState<string>("");
+    const [title, setTitle] = useState<string>("");
 
     const onBack = () => {
         navigate(`${ prefix }/coin-category/manage`);
@@ -17,10 +15,7 @@ const Add = () => {
     
     return (
         <div className="p-4 bg-white">
-            <div className="grid grid-cols-2 gap-4">
-                <LabelInput1 label="Contact Address  *" onChangeHandler={setContactAddress} text={contactAddress} placeholder="Enter the contact address"></LabelInput1>
-                <Select3 label="Pancake Router Address Version *" list={["Select Pancake Router Address Version", "Router Address V1", "Router Address V2"]}></Select3>
-            </div>
+            <LabelInput1 label="Title *" onChangeHandler={setTitle} text={title} placeholder="Featured Coin"></LabelInput1>
             <div className='w-full flex justify-center mt-8 col-span-3'>
                 <Button1 className='w-32 mr-2' text='Save'/>
                 <Button2 className='w-32' text='Back' onClick={() => onBack()}/>

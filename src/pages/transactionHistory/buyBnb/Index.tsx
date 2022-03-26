@@ -3,6 +3,7 @@ import { useNavigate } from "react-router-dom";
 import DataTable from "components/organism/DataTable";
 import { IField } from 'components/atoms/Table';
 import { prefix } from "constants/menuInfo";
+import { SearchPanelTxBuyBnb } from 'components/moleculars/SearchPanel';
 
 const TxBuyBnbIndex = () => {
     const navigate = useNavigate();
@@ -38,7 +39,28 @@ const TxBuyBnbIndex = () => {
             }
         }
     ]);
-    return (<DataTable fields={tableFields} datas={tableDatas} />)
+    const [searchEmail, setSearchEmail] = useState<string>("");
+    const [searchPaymentId, setSearchPaymentId] = useState<string>("");
+    const [searchStatus, setSearchStatus] = useState<string>("");
+    const clear = () => {
+        setSearchEmail("");
+        setSearchPaymentId("");
+        setSearchStatus("");
+    };
+    return (
+        <div>
+            <SearchPanelTxBuyBnb
+                searchEmail={searchEmail}
+                setSearchEmail={setSearchEmail}
+                searchPaymentId={searchPaymentId}
+                setSearchPaymentId={setSearchPaymentId}
+                searchStatus={searchStatus}
+                setSearchStatus={setSearchStatus}
+                clear={clear}
+            />
+            <DataTable fields={tableFields} datas={tableDatas} />
+        </div>
+    )
 }
 
 export default TxBuyBnbIndex;
