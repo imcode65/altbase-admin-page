@@ -5,12 +5,12 @@ import { IIcon } from 'components/icons/IIcon';
 interface IIconButton {
     Icon?: FC<IIcon>;
     className?: string;
-    onAddLinks?: () => void;
+    onClick?: () => void;
 }
 
-const IconButton: FC<IIconButton> = ({ Icon=IconRefresh, className="", onAddLinks = () => {} }) => {
+const IconButton: FC<IIconButton> = ({ Icon=IconRefresh, className="", onClick = () => {} }) => {
     return (
-        <button onClick={onAddLinks} className={`w-8 h-8 rounded border border-color-20 flex justify-center items-center hover:bg-color-20 hover:text-white transition ${className}`}>
+        <button onClick={onClick} className={`w-10 h-10 rounded border border-color-20 flex justify-center items-center hover:bg-color-20 hover:text-white transition ${className}`}>
             <Icon />
         </button>
     )

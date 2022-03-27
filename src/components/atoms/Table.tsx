@@ -14,8 +14,8 @@ export interface ITable {
 const Table: FC<ITable> = ({ fields=[], datas=[] }) => {
     return (
         <table className='w-full border-2 border-x-color-13 min-w-[768px]'>
-            <tbody>
-                <tr className='bg-color-14'>
+            <tbody className='text-color-20'>
+                <tr className='bg-color-14 font-bold'>
                 { fields.map((field, id) => <td className={`${ id === 0 ? "pl-2" : "" } ${ id === fields.length ? "pr-2" : "" } py-4`} key={id}>{ field.text || "" }</td>) }
                 </tr>
                 { datas.map((data, id) => <tr className='w-full px-2 py-4 hover:bg-color-13' key={id}>

@@ -14,6 +14,7 @@ import EmailTemplateManage from 'pages/emailTemplate/Manage';
 import EmailTemplateEdit from 'pages/emailTemplate/Edit';
 import EmailTemplateView from 'pages/emailTemplate/View';
 import Cms from 'pages/cms/Index';
+import CmsAdd from 'pages/cms/Add';
 import CmsManage from 'pages/cms/Manage';
 import CmsEdit from 'pages/cms/Edit';
 import CmsView from 'pages/cms/View';
@@ -67,6 +68,7 @@ const AppRoutes = () => {
           </Route>
           <Route path='cms' element={<Cms />}>
             <Route path='manage' element={<CmsManage />} />
+            <Route path='add' element={<CmsAdd />} />
             <Route path='edit/:id' element={<CmsEdit />} />
             <Route path='view/:id' element={<CmsView />} />
           </Route>

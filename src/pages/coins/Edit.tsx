@@ -80,7 +80,7 @@ const Edit = () => {
             <div className="my-4">
                 <div className="flex items-center">
                     <span className="text-sm font-bold">Social Media Links &nbsp;</span>
-                    <IconButton Icon={IconAdd} className="bg-black" onAddLinks={onAddLinks}></IconButton>
+                    <IconButton Icon={IconAdd} className="bg-black" onClick={onAddLinks}></IconButton>
                     {
                         // marketArray.map((val: any, index: number) => (
                         //     <input></input>

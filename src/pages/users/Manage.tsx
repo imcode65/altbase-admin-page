@@ -5,6 +5,8 @@ import { IField } from 'components/atoms/Table';
 import { prefix } from "constants/menuInfo";
 import SwitchButton from 'components/atoms/SwitchButton';
 import { SearchPanelUsers } from 'components/moleculars/SearchPanel';
+import { confirm } from "react-confirm-box";
+import ConfirmAlert from "components/moleculars/ConfirmAlert";
 
 const Manage = () => {
     const navigate = useNavigate();
@@ -87,7 +89,23 @@ const Manage = () => {
                 setSearchStatus={setSearchStatus}
                 clear={clear}
             />
-            <DataTable fields={tableFields} datas={tableData} />
+            <DataTable fields={tableFields} datas={tableData} additionalBtns={[{
+                text: "Add",
+                clickHandler: () => navigate(`${ prefix }/cms/add`)
+            }, {
+                text: "Generate UUID",
+                clickHandler: () => {
+                    (async () => {
+                        const result = await confirm("Are you sure?", {
+                            // @ts-ignore
+                            render: (message, onConfirm, onCancel) => <ConfirmAlert onConfirm={onConfirm} onCancel={onCancel} />
+                        });
+                        if (result) {
+                            navigate(0)
+                        }
+                    })()
+                }
+            }]} />
         </div>
     )
 }
