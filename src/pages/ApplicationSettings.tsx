@@ -8,6 +8,8 @@ const SiteSettings = () => {
         <div className='p-4'>
             <div className="grid grid-cols-2 gap-4">
                 <LabelInput1 className="mt-4" label="API Url *" placeholder="https://api.100xcoin.io/" ></LabelInput1>
+                <LabelInput1 className="mt-4" label="API Url *" placeholder="https://api.100xcoin.io/" ></LabelInput1>
+                <LabelInput1 className="mt-4" label="API Url *" placeholder="https://api.100xcoin.io/" ></LabelInput1>
                 <LabelInput1 className="mt-4" label="Pancake Swap Router Address *" placeholder="0x05fF2B0DB69458A0750badebc4f9e13aDd608C7F" ></LabelInput1>
                 <LabelInput1 className="mt-4" label="Pancake Swap Router Path Address *" placeholder={`["0xbb4cdb9cbd36b01bd1cbaebf2de08d9173bc095c","0x016c285d5b918b92aa85ef1e147498badfe30d69"]`} ></LabelInput1>
                 <LabelInput1 className="mt-4" label="xToken Contract Address *" placeholder="0x016c285d5b918b92aa85ef1e147498badfe30d69" ></LabelInput1>
