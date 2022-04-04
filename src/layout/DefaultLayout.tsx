@@ -13,6 +13,9 @@ const DefaultLayout = () => {
             <div className=''>
                 <SideBar />
             </div>
+            <div className=''>
+                <SideBar />
+            </div>
             <div className={`${ sidemenuOpened ? "ml-0" : "-ml-64" } flex flex-col justify-between`} style={{
                 width: sidemenuOpened ? "calc(100% - 16rem)" : "100%"
             }}>
