@@ -1,6 +1,5 @@
 import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { prefix } from "constants/menuInfo";
 import LabelInput1 from 'components/atoms/LabelInput1';
 import Select3 from 'components/atoms/Select3';
 import TextArea from 'components/atoms/TextArea';
@@ -8,6 +7,7 @@ import LogoUploader from 'components/atoms/LogoUploader';
 import SwitchButton from 'components/atoms/SwitchButton';
 import Button1 from 'components/atoms/Button1';
 import Button2 from 'components/atoms/Button2';
+import toast from 'react-hot-toast';
 
 const Edit = () => {
     const navigate = useNavigate();
@@ -21,7 +21,11 @@ const Edit = () => {
     }
 
     const onBack = () => {
-        navigate(`${ prefix }/coin-news/manage`);
+        navigate(-1);
+    }
+
+    const saveHandler = () => {
+        toast.success('Successfully toasted!')
     }
 
     return (
@@ -46,7 +50,7 @@ const Edit = () => {
                 <SwitchButton onChangeHandler={onChangeStatus}/>
             </div>
             <div className='w-full flex justify-center'>
-                <Button1 className='w-32 mr-2' text='Save' />
+                <Button1 className='w-32 mr-2' text='Save' confirming onClick={saveHandler} />
                 <Button2 className='w-32' text='Back' onClick={onBack}/>
             </div>
         </div>

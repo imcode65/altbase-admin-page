@@ -69,7 +69,10 @@ const Manage = () => {
                 setSearchStatus={setSearchStatus}
                 clear={clear}
             />
-            <DataTable fields={tableFields} datas={tableDatas} />
+            <DataTable fields={tableFields} datas={tableDatas} additionalBtns={[{
+                text: "Add",
+                clickHandler: () => navigate(`${ prefix }/coins/add`)
+            }, ]} />
         </div>
     )
 }

@@ -6,7 +6,7 @@ import Button1 from 'components/atoms/Button1';
 import Button2 from 'components/atoms/Button2';
 import SwitchButton from 'components/atoms/SwitchButton';
 import { useNavigate } from 'react-router-dom';
-import { prefix } from "constants/menuInfo";
+import toast from 'react-hot-toast';
 
 const Edit = () => {
     const navigate = useNavigate();
@@ -19,9 +19,13 @@ const Edit = () => {
     }
 
     const onBack = () => {
-        navigate(`${ prefix }/cms/manage`);
+        navigate(-1);
     }
-
+    
+    const saveHandler = () => {
+        toast.success('Successfully toasted!')
+    }
+    
     return (
         <div className="p-4 bg-white mt-8">
             <div className="mb-16">
@@ -30,8 +34,8 @@ const Edit = () => {
             </div>
             <SwitchButton onChangeHandler={onChangeStatus}/>
             <div className='w-full flex justify-center mt-8'>
-                <Button1 className='w-32 mr-2' text='Save' />
-                <Button2 className='w-32 ' text='Back' onClick={() => onBack()}/>
+                <Button1 className='w-32 mr-2' text='Save' confirming onClick={saveHandler} />
+                <Button2 className='w-32 ' text='Back' onClick={onBack}/>
             </div>
         </div>
     )

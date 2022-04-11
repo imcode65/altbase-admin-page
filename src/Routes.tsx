@@ -21,7 +21,6 @@ import CmsView from 'pages/cms/View';
 import Users from 'pages/users/Index';
 import UsersManage from 'pages/users/Manage';
 import UsersAdd from 'pages/users/Add';
-import UsersEdit from 'pages/users/Edit';
 import UsersView from 'pages/users/View';
 import CoinCategory from 'pages/coinCategory/Index';
 import CoinCategoryManage from 'pages/coinCategory/Manage';
@@ -75,7 +74,6 @@ const AppRoutes = () => {
           <Route path='users' element={<Users />}>
             <Route path='manage' element={<UsersManage />} />
             <Route path='add' element={<UsersAdd />} />
-            <Route path='edit/:id' element={<UsersEdit />} />
             <Route path='view/:id' element={<UsersView />} />
           </Route>
           <Route path='coin-category' element={<CoinCategory />}>

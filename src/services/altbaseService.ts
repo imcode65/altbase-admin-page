@@ -7,7 +7,7 @@ export const setAxiosHeader = (account: string) => {
 
 export const altbaseServer = axios.create({
     baseURL: altbaseUri,
-    withCredentials: true, // required to handle the CSRF token
+    withCredentials: false, // required to handle the CSRF token
 })
 
 interface ILogin {
@@ -17,8 +17,9 @@ interface ILogin {
 export default {
     async login({email, password}: ILogin) {
         try {
+            console.log(email, password)
             let res = await altbaseServer.post("admin/auth/login", {
-                email, password
+                email: email, password: password
             });
             console.log(res)
             return ({
@@ -27,7 +28,7 @@ export default {
                 content: res.data
             })
         } catch (err: any) {
-            console.log(err.message)
+            console.log("Err: ", err.response)
             return ({
                 success: false,
                 message: err,

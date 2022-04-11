@@ -5,24 +5,33 @@ import { useLocation } from 'react-router-dom';
 import { useContext } from 'react';
 import { LayoutContext } from 'context/layoutContext';
 import { prefix, menuInfo } from 'constants/menuInfo';
+import { md } from 'constants/screenSize';
+import { useMediaQuery } from "react-responsive";
 
 const SideBar = () => {
+    let isPortrait = useMediaQuery({ query: `(max-width: ${md}px)` });
     const location = useLocation();
-    const { sidemenuOpened } = useContext(LayoutContext);
+    const { sidemenuOpened, sidemenuToggle } = useContext(LayoutContext);
     return (
-        <div className={`flex flex-col align-start h-full w-64 transition-all ${ sidemenuOpened ? "translate-x-0 shadow-lg" : "-translate-x-64"} border-r bg-color-11`}>
-            <div className="flex flex-col items-center justify-center border-b border-color-12 h-14">
-                <Logo></Logo>
+        <>
+            <div className={`flex flex-col align-start h-full w-64 transition-all ${ sidemenuOpened ? "translate-x-0 shadow-lg" : (isPortrait ? "-translate-x-[100vw]" : "-translate-x-64")} bg-color-11 shadow-2xl`}>
+                <div className="flex flex-col items-center justify-center border-b border-color-12 h-14">
+                    <Logo></Logo>
+                </div>
+                <div className=''>
+                    <GradientText className='w-full flex justify-center mb-4' text='Admin' />
+                    <ul>
+                    { menuInfo.filter(val => val.breadCrumbActiveNum === 1).map((menuItem, id) => (
+                        <MenuItem to={prefix + menuItem.matchingUrl} key={id} Icon={menuItem.Icon} text={menuItem.text} active={location.pathname.startsWith(prefix + menuItem.matchingUrlSidebar)} />
+                    )) }
+                    </ul>
+                </div>
             </div>
-            <div className=''>
-                <GradientText className='w-full flex justify-center mb-4' text='Welcome Admin' />
-                <ul>
-                { menuInfo.filter(val => val.breadCrumbActiveNum === 1).map((menuItem, id) => (
-                    <MenuItem to={prefix + menuItem.matchingUrl} key={id} Icon={menuItem.Icon} text={menuItem.text} active={location.pathname.startsWith(prefix + menuItem.matchingUrlSidebar)} />
-                )) }
-                </ul>
-            </div>
-        </div>
+            { isPortrait ? <div onClick={() => sidemenuToggle(!sidemenuOpened)} className={`bg-black bg-opacity-10 ${ sidemenuOpened ? "" : "-translate-x-[100vw]"}`} style={{
+                width: "calc(100vw - 16rem)",
+            }}>
+            </div> : "" }
+        </>
     )
 }
 

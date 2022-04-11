@@ -15,7 +15,7 @@ const BoardCard: FC<IBoardCard> = ({ className="", infoNumber=0, infoText="" }) 
         </div>
         <div className="h-8 flex justify-center items-center bg-black bg-opacity-10 cursor-pointer">
             <span className='mr-1'>More Info</span>
-            <IconRight />
+            <IconRight dark={false} />
         </div>
     </div>)
 }

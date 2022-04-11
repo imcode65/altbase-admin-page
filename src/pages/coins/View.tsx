@@ -20,32 +20,32 @@ const View = () => {
     const [socialMediaLink, setSocialMediaLink] = useState<string>("NA");
 
     const onBack = () => {
-        navigate(`${ prefix }/coins/manage`);
+        navigate(-1);
     }
     
     return (
         <div className="p-4 bg-white mt-8">
-            <div className="grid grid-cols-2">
-                <div className="flex">
+            <div className="grid md:grid-cols-2">
+                <div className="flex justify-center items-center">
                     <img className='h-8 m-2 rounded-md overflow-hidden' src={XLogo} alt="XLogo" />
                     <LabelComponent title="Tether USD:" text={"USDT"}></LabelComponent>
                 </div>
                 <LabelComponent title="Tether USD:" text={url}></LabelComponent>
             </div>
             <LabelComponent title="About" text={text}></LabelComponent>
-            <div className="grid grid-cols-2">
-                <LabelComponent title="Coin Category" text={category}></LabelComponent>
-                <LabelComponent title="Contract Address" text={address}></LabelComponent>
-                <LabelComponent title="Router Address Version" text={routerAddressVersion}></LabelComponent>
-                <LabelComponent title="Router Path Address" text={routerPathAddress}></LabelComponent>
-                <LabelComponent title="Coin market cap URL" text={capUrl} bage_text={`${capUrl === "" ? 'no': ''}`} bage_class={`${capUrl === "" ? 'bg-red-500': ''}`}></LabelComponent>
-                <LabelComponent title="Status" bage_text={`${status ? 'active': 'Inactive'}`} bage_class={`${status ? 'bg-green-500': 'bg-red-500'}`} ></LabelComponent>
-                <LabelComponent title="Buy Criteria (100x)" text={criteria}></LabelComponent>
-                <LabelComponent title="Created At" text={createdAt}></LabelComponent>
-                <LabelComponent title="Social Media Links" text={socialMediaLink}></LabelComponent>
+            <div className="grid md:grid-cols-2">
+                <LabelComponent className='mt-2' title="Coin Category" text={category}></LabelComponent>
+                <LabelComponent className='mt-2' title="Contract Address" text={address}></LabelComponent>
+                <LabelComponent className='mt-2' title="Router Address Version" text={routerAddressVersion}></LabelComponent>
+                <LabelComponent className='mt-2' title="Router Path Address" text={routerPathAddress}></LabelComponent>
+                <LabelComponent className='mt-2' title="Coin market cap URL" text={capUrl} bage_text={`${capUrl === "" ? 'no': ''}`} bage_class={`${capUrl === "" ? 'bg-red-500': ''}`}></LabelComponent>
+                <LabelComponent className='mt-2' title="Status" bage_text={`${status ? 'active': 'Inactive'}`} bage_class={`${status ? 'bg-green-500': 'bg-red-500'}`} ></LabelComponent>
+                <LabelComponent className='mt-2' title="Buy Criteria (100x)" text={criteria}></LabelComponent>
+                <LabelComponent className='mt-2' title="Created At" text={createdAt}></LabelComponent>
+                <LabelComponent className='mt-2' title="Social Media Links" text={socialMediaLink}></LabelComponent>
             </div>
             <div className='w-full flex justify-start mt-8'>
-                <Button2 className='w-32' text='Back' onClick={() => onBack()}/>
+                <Button2 className='w-32' text='Back' onClick={onBack}/>
             </div>
         </div>
     )

@@ -3,7 +3,7 @@ import ConfirmAlert from "components/moleculars/ConfirmAlert";
 import { confirm } from "react-confirm-box";
 
 interface ISwitchButton {
-    onChangeHandler?: (x: boolean) => {};
+    onChangeHandler?: (x: boolean) => void;
     confirming?: boolean;
 }
 const SwitchButton: FC<ISwitchButton> = ({ onChangeHandler=()=>{}, confirming=false }) => {

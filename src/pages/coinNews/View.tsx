@@ -15,13 +15,13 @@ const View = () => {
     const [updatedAt, setUpdatedAt] = useState<string>("");
 
     const onBack = () => {
-        navigate(`${ prefix }/coin-news/manage`);
+        navigate(-1);
     }
 
     return (
         <>
             <div className="p-4 bg-white mt-8">
-                <div className="grid grid-cols-2 gap-4">
+                <div className="grid md:grid-cols-2 gap-4">
                     <div>
                         <span className="front-bold"> Thumbnail </span>
                         <img className='h-8 m-2 rounded-md overflow-hidden' src={XLogo} alt="XLogo" />

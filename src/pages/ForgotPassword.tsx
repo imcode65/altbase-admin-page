@@ -2,7 +2,7 @@ import Logo from "components/atoms/Logo";
 import Title from "components/atoms/Title";
 import IconInput1 from "components/atoms/IconInput1";
 import Button1 from "components/atoms/Button1";
-import IconEmail from "components/icons/IconEmail";
+import IconEnvelope from "components/icons/IconEnvelope";
 import { useState } from "react";
 import { Link } from "react-router-dom";
 
@@ -25,7 +25,7 @@ const ForgotPassword = () => {
                     <Title className="w-full flex justify-center items-center" text="You forgot your password?" />
                     <div className="text-color-13 text-center mb-5">Please enter your email, we will send you the reset password link.</div>
                     <IconInput1 
-                        Icon={IconEmail}
+                        Icon={IconEnvelope}
                         placeholder="Enter your email"
                         className="my-5"
                         text={email}

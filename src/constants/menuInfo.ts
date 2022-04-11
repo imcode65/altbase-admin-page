@@ -1,8 +1,17 @@
-import IconEmail from 'components/icons/IconEmail';
+import IconEnvelope from 'components/icons/IconEnvelope';
+import IconTachometer from 'components/icons/IconTachometer';
+import IconCog from 'components/icons/IconCog';
+import IconGrav from 'components/icons/IconGrav';
+import IconUsers from 'components/icons/IconUsers';
+import IconList from 'components/icons/IconList';
+import IconCoins from 'components/icons/IconCoins';
+import IconNewspaper from 'components/icons/IconNewspaper';
+import IconBell from 'components/icons/IconBell';
+import IconCreditCard from 'components/icons/IconCreditCard';
 
 export const prefix = "/admin";
 export const menuInfo = [{
-    Icon: IconEmail,
+    Icon: IconTachometer,
     text: "Dashboard",
     to: ["/dashboard"],
     matchingUrl: "/dashboard",
@@ -11,7 +20,7 @@ export const menuInfo = [{
     breadCrumbActiveNum: 1,
     breadCrumbTitle: "Dashboard",
 }, {
-    Icon: IconEmail,
+    Icon: IconCog,
     text: "Site Settings",
     to: ["/dashboard"],
     matchingUrl: "/site-settings",
@@ -20,7 +29,7 @@ export const menuInfo = [{
     breadCrumbActiveNum: 1,
     breadCrumbTitle: "Site Settings",
 }, {
-    Icon: IconEmail,
+    Icon: IconCog,
     text: "Application Settings",
     to: ["/dashboard"],
     matchingUrl: "/application-settings",
@@ -29,7 +38,7 @@ export const menuInfo = [{
     breadCrumbActiveNum: 1,
     breadCrumbTitle: "Application Settings",
 }, {
-    Icon: IconEmail,
+    Icon: IconEnvelope,
     text: "Email Template",
     to: ["/dashboard"],
     matchingUrl: "/email-template/manage",
@@ -38,7 +47,7 @@ export const menuInfo = [{
     breadCrumbActiveNum: 1,
     breadCrumbTitle: "Email Templates",
 }, {
-    Icon: IconEmail,
+    Icon: IconEnvelope,
     text: "Email Template",
     to: ["/dashboard", "/email-template/manage"],
     matchingUrl: "/email-template/edit",
@@ -47,7 +56,7 @@ export const menuInfo = [{
     breadCrumbActiveNum: 2,
     breadCrumbTitle: "Email Templates",
 }, {
-    Icon: IconEmail,
+    Icon: IconEnvelope,
     text: "Email Template",
     to: ["/dashboard", "/email-template/manage"],
     matchingUrl: "/email-template/view",
@@ -56,7 +65,7 @@ export const menuInfo = [{
     breadCrumbActiveNum: 2,
     breadCrumbTitle: "Email Templates",
 }, {
-    Icon: IconEmail,
+    Icon: IconGrav,
     text: "CMS",
     to: ["/dashboard"],
     matchingUrl: "/cms/manage",
@@ -65,7 +74,7 @@ export const menuInfo = [{
     breadCrumbActiveNum: 1,
     breadCrumbTitle: "Manage CMS",
 }, {
-    Icon: IconEmail,
+    Icon: IconGrav,
     text: "CMS",
     to: ["/dashboard", "/cms/manage"],
     matchingUrl: "/cms/edit",
@@ -74,7 +83,7 @@ export const menuInfo = [{
     breadCrumbActiveNum: 2,
     breadCrumbTitle: "Edit CMS",
 }, {
-    Icon: IconEmail,
+    Icon: IconGrav,
     text: "CMS",
     to: ["/dashboard", "/cms/manage"],
     matchingUrl: "/cms/view",
@@ -83,7 +92,7 @@ export const menuInfo = [{
     breadCrumbActiveNum: 2,
     breadCrumbTitle: "Manage CMS Content",
 }, {
-    Icon: IconEmail,
+    Icon: IconUsers,
     text: "Users",
     to: ["/dashboard"],
     matchingUrl: "/users/manage",
@@ -92,7 +101,7 @@ export const menuInfo = [{
     breadCrumbActiveNum: 1,
     breadCrumbTitle: "Manage Users",
 }, {
-    Icon: IconEmail,
+    Icon: IconUsers,
     text: "Users",
     to: ["/dashboard", "/users/manage"],
     matchingUrl: "/users/add",
@@ -101,7 +110,7 @@ export const menuInfo = [{
     breadCrumbActiveNum: 2,
     breadCrumbTitle: "Add Users",
 }, {
-    Icon: IconEmail,
+    Icon: IconUsers,
     text: "Users",
     to: ["/dashboard", "/users/manage"],
     matchingUrl: "/users/edit",
@@ -110,7 +119,7 @@ export const menuInfo = [{
     breadCrumbActiveNum: 2,
     breadCrumbTitle: "Manage Users",
 }, {
-    Icon: IconEmail,
+    Icon: IconUsers,
     text: "Users",
     to: ["/dashboard", "/users/manage"],
     matchingUrl: "/users/view",
@@ -119,7 +128,7 @@ export const menuInfo = [{
     breadCrumbActiveNum: 2,
     breadCrumbTitle: "Manage Users",
 }, {
-    Icon: IconEmail,
+    Icon: IconList,
     text: "Coin Category",
     to: ["/dashboard"],
     matchingUrl: "/coin-category/manage",
@@ -128,7 +137,7 @@ export const menuInfo = [{
     breadCrumbActiveNum: 1,
     breadCrumbTitle: "Manage Coin Category",
 }, {
-    Icon: IconEmail,
+    Icon: IconList,
     text: "Coin Category",
     to: ["/dashboard", "/coin-category/manage"],
     matchingUrl: "/coin-category/edit",
@@ -137,7 +146,7 @@ export const menuInfo = [{
     breadCrumbActiveNum: 2,
     breadCrumbTitle: "Edit Coin Category",
 }, {
-    Icon: IconEmail,
+    Icon: IconList,
     text: "Coin Category",
     to: ["/dashboard", "/coin-category/manage"],
     matchingUrl: "/coin-category/add",
@@ -146,7 +155,7 @@ export const menuInfo = [{
     breadCrumbActiveNum: 2,
     breadCrumbTitle: "Add Coin Category",
 }, {
-    Icon: IconEmail,
+    Icon: IconCoins,
     text: "Coins",
     to: ["/dashboard"],
     matchingUrl: "/coins/manage",
@@ -155,7 +164,7 @@ export const menuInfo = [{
     breadCrumbActiveNum: 1,
     breadCrumbTitle: "Manage Coins",
 }, {
-    Icon: IconEmail,
+    Icon: IconCoins,
     text: "Coins",
     to: ["/dashboard", "/coins/manage"],
     matchingUrl: "/coins/add",
@@ -164,7 +173,7 @@ export const menuInfo = [{
     breadCrumbActiveNum: 2,
     breadCrumbTitle: "Add Coin",
 }, {
-    Icon: IconEmail,
+    Icon: IconCoins,
     text: "Coins",
     to: ["/dashboard", "/coins/manage"],
     matchingUrl: "/coins/edit",
@@ -173,7 +182,7 @@ export const menuInfo = [{
     breadCrumbActiveNum: 2,
     breadCrumbTitle: "Edit Coins",
 }, {
-    Icon: IconEmail,
+    Icon: IconCoins,
     text: "Coins",
     to: ["/dashboard", "/coins/manage"],
     matchingUrl: "/coins/view",
@@ -182,7 +191,7 @@ export const menuInfo = [{
     breadCrumbActiveNum: 2,
     breadCrumbTitle: "View Coin Details",
 }, {
-    Icon: IconEmail,
+    Icon: IconNewspaper,
     text: "Coin News",
     to: ["/dashboard"],
     matchingUrl: "/coin-news/manage",
@@ -191,7 +200,7 @@ export const menuInfo = [{
     breadCrumbActiveNum: 1,
     breadCrumbTitle: "Manage Coin News",
 }, {
-    Icon: IconEmail,
+    Icon: IconNewspaper,
     text: "Coin News",
     to: ["/dashboard", "/coin-news/manage"],
     matchingUrl: "/coin-news/add",
@@ -200,7 +209,7 @@ export const menuInfo = [{
     breadCrumbActiveNum: 2,
     breadCrumbTitle: "Add Coin News",
 }, {
-    Icon: IconEmail,
+    Icon: IconNewspaper,
     text: "Coin News",
     to: ["/dashboard", "/coin-news/manage"],
     matchingUrl: "/coin-news/edit",
@@ -209,7 +218,7 @@ export const menuInfo = [{
     breadCrumbActiveNum: 2,
     breadCrumbTitle: "Edit Coin News",
 }, {
-    Icon: IconEmail,
+    Icon: IconNewspaper,
     text: "Coin News",
     to: ["/dashboard", "/coin-news/manage"],
     matchingUrl: "/coin-news/view",
@@ -218,7 +227,7 @@ export const menuInfo = [{
     breadCrumbActiveNum: 2,
     breadCrumbTitle: "View Coin News",
 }, {
-    Icon: IconEmail,
+    Icon: IconBell,
     text: "Notifications",
     to: ["/dashboard"],
     matchingUrl: "/in-app-notification",
@@ -227,7 +236,7 @@ export const menuInfo = [{
     breadCrumbActiveNum: 1,
     breadCrumbTitle: "Notifications",
 }, {
-    Icon: IconEmail,
+    Icon: IconCreditCard,
     text: "Transaction History - Buy BNB",
     to: ["/dashboard"],
     matchingUrl: "/transaction-history/buy-bnb",
@@ -236,7 +245,7 @@ export const menuInfo = [{
     breadCrumbActiveNum: 1,
     breadCrumbTitle: "Manage Buy BNB Transaction History",
 }, {
-    Icon: IconEmail,
+    Icon: IconCreditCard,
     text: "Transaction History - Buy BNB",
     to: ["/dashboard", "/transaction-history/buy-bnb"],
     matchingUrl: "/transaction-history/buy-bnb/details",

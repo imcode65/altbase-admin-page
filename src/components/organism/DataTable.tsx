@@ -40,13 +40,13 @@ const DataTable: FC<IDataTable> = ({ fields=[], datas=[], currentPage=1, changeC
             { loading ? <div className='absolute w-full h-full flex justify-center items-center bg-gray-300 z-40'>
                 Loading
             </div> : '' }
-            <div className='p-4 flex justify-between'>
+            <div className='p-4 flex justify-between flex-wrap'>
                 <Select1 label='Item per page' value={cntPerPage} onChangeHandler={val => setCntPerPage(typeof val === "string" ? parseInt(val) : val)} list={[5, 10, 15, 50, 100]} />
-                <div className='flex gap-2'>
+                <div className='flex flex-col md:flex-row gap-2'>
                     { additionalBtns.map((addBtn, id) => (
-                        <Button3 text={addBtn.text || ""} onClick={addBtn.clickHandler} />
+                        <Button3 key={id} text={addBtn.text || ""} onClick={addBtn.clickHandler} />
                     ))}
-                    <IconButton Icon={IconRefresh} onClick={refreshHandler} />
+                    <IconButton className='mx-auto' Icon={IconRefresh} onClick={refreshHandler} />
                 </div>
             </div>
             <div className='w-full px-2 overflow-hidden'>

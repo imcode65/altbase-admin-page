@@ -13,7 +13,7 @@ const Logo: FC<ILogo> = ({ className="" }) => {
             WebkitTextFillColor: "transparent",
             fontSize: "24px",
             fontWeight: "900",
-        }}>100xAltbase</div>
+        }}>Altbase</div>
     )
 }
 

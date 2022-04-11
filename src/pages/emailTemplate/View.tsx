@@ -2,9 +2,10 @@ import LabelComponent from 'components/atoms/LabelComponent';
 import IframeComponent from 'components/atoms/IframeComponent';
 import Button2 from 'components/atoms/Button2';
 import { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 
 const View = () => {
-    
+    const navigate = useNavigate();
     const [nameText, setNameText] = useState<string>("Email Verification");
     const [slugText, setSlugText] = useState<string>("email_Verification");
     const [subjectText, setSubjectText] = useState<string>("Verify your email address");
@@ -13,12 +14,12 @@ const View = () => {
     const [iframeSrc, setIframeSrc] = useState<string>("https://www.w3schools.com");
 
     const onBack = () => {
-        console.log("asdfasdf")
+        navigate(-1);
     }
 
     return (
         <div className="p-4 bg-white mt-8">
-            <div className="grid grid-cols-2 p-2">
+            <div className="grid md:grid-cols-2 p-2">
                 <div>
                     <LabelComponent text={nameText} title="Template Name"></LabelComponent>
                     <LabelComponent text={slugText} title="Template Slug"></LabelComponent>

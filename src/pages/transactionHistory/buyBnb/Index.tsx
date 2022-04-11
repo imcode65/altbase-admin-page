@@ -4,6 +4,8 @@ import DataTable from "components/organism/DataTable";
 import { IField } from 'components/atoms/Table';
 import { prefix } from "constants/menuInfo";
 import { SearchPanelTxBuyBnb } from 'components/moleculars/SearchPanel';
+import { confirm } from "react-confirm-box";
+import ConfirmAlert from "components/moleculars/ConfirmAlert";
 
 const TxBuyBnbIndex = () => {
     const navigate = useNavigate();
@@ -58,7 +60,20 @@ const TxBuyBnbIndex = () => {
                 setSearchStatus={setSearchStatus}
                 clear={clear}
             />
-            <DataTable fields={tableFields} datas={tableDatas} />
+            <DataTable fields={tableFields} datas={tableDatas} additionalBtns={[{
+                text: "Reset Untracked Events",
+                clickHandler: () => {
+                    (async () => {
+                        const result = await confirm("Are you sure?", {
+                            // @ts-ignore
+                            render: (message, onConfirm, onCancel) => <ConfirmAlert onConfirm={onConfirm} onCancel={onCancel} />
+                        });
+                        if (result) {
+                            navigate(0)
+                        }
+                    })()
+                }
+            }]} />
         </div>
     )
 }

@@ -15,9 +15,9 @@ const View = () => {
     return (
         <div className="p-4 bg-white mt-8">
             <div className="flex flex-row overflow-auto flex-nowrap text-sm font-semibold border-solid border-b-2 h-10">
-                <div className={`flex w-36 justify-center ${tabId === 1 ? "border-solid border-b-4 border-indigo-600": ""}`} onClick={() => onTab(1)}> Basic Information </div>
-                <div className={`flex w-36 justify-center ${tabId === 2 ? "border-solid border-b-4 border-indigo-600": ""}`} onClick={() => onTab(2)}> Wallet </div>
-                <div className={`flex w-36 justify-center ${tabId === 3 ? "border-solid border-b-4 border-indigo-600": ""}`} onClick={() => onTab(3)}> Invite Friend </div>
+                <div className={`flex px-4 md:w-36 justify-center ${tabId === 1 ? "border-solid border-b-4 border-indigo-600": ""}`} onClick={() => onTab(1)}> Basic Information </div>
+                <div className={`flex px-4 md:w-36 justify-center ${tabId === 2 ? "border-solid border-b-4 border-indigo-600": ""}`} onClick={() => onTab(2)}> Wallet </div>
+                <div className={`flex px-4 md:w-36 justify-center ${tabId === 3 ? "border-solid border-b-4 border-indigo-600": ""}`} onClick={() => onTab(3)}> Invite Friend </div>
             </div>
             <div>
                 {

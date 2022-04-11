@@ -14,7 +14,7 @@ const View = () => {
     const [contentText, setContentText] = useState<string>("Its a great exchange platform");
 
     const onBack = () => {
-        navigate(`${ prefix }/cms/manage`);
+        navigate(-1);
     }
 
     return (

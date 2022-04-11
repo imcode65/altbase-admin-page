@@ -2,8 +2,6 @@ import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import LabelComponent from 'components/atoms/LabelComponent';
 import Button2 from 'components/atoms/Button2';
-import { prefix } from "constants/menuInfo";
-import XLogo from 'assets/imgs/XLogo.png';
 
 const Details = () => {
     const navigate = useNavigate();
@@ -15,7 +13,7 @@ const Details = () => {
     const [walletAddress, setWalletAddress] = useState<string>("0x7ec7A13381973Aa0E3B3ADE652F2e1eD98A31882");
 
     const onBack = () => {
-        navigate(`${ prefix }/users/manage`);
+        navigate(-1);
     }
 
     return (
@@ -35,7 +33,7 @@ const Details = () => {
                 </div>
             </div>
             <div className='w-full flex justify-center mt-8'>
-                <Button2 className='w-32' text='Back' onClick={() => onBack()}/>
+                <Button2 className='w-32' text='Back' onClick={onBack}/>
             </div>
         </div>
     )

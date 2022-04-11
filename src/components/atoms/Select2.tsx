@@ -3,6 +3,7 @@ import { v4 as uuidv4 } from 'uuid';
 import IconScroll from 'components/icons/IconScroll';
 
 interface ISelect2 {
+    className?: string;
     list?: string[];
     label?: string;
     id?: string;
@@ -10,9 +11,9 @@ interface ISelect2 {
     onChangeHandler?: (x: string) => void;
 }
 
-const Select2: FC<ISelect2> = ({ list=[], label="", id=uuidv4(), value="", onChangeHandler=()=>{} }) => {
+const Select2: FC<ISelect2> = ({ className="", list=[], label="", id=uuidv4(), value="", onChangeHandler=()=>{} }) => {
     return (
-        <div className='flex items-center'>
+        <div className={`flex items-center ${ className }`}>
             { label === "" ? "" : <label className='mr-2' htmlFor={id}>{label}</label> }
             <div className='relative h-full w-full'>
                 <select 

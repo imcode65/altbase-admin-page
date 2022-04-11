@@ -10,7 +10,7 @@ interface ILabelComponent {
 
 const LabelComponent: FC<ILabelComponent> = ({ className="", text="", title="", bage_class="", bage_text="" }) => {
     return (
-        <div className={`${ className } text-xl text-black mb-7`}>
+        <div className={`${ className } text-xl text-black`}>
             <div className="text-sm font-bold">
                 <p> {title} </p>
             </div>

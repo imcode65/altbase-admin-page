@@ -25,7 +25,7 @@ export const SearchPanelEmailTemplate: FC<ISearchPanelEmailTemplate> = ({
     clear=()=>{},
 }) => {
     return (
-        <div className="mb-4 p-4 grid grid-cols-6 gap-4 bg-white">
+        <div className="mb-4 p-4 grid md:grid-cols-6 gap-4 bg-white">
             <Input1 value={searchName} onChangeHandler={setSearchName} placeholder="Search by name" />
             <Input1 value={searchSlug} onChangeHandler={setSearchSlug} placeholder="Search by slug" />
             <Input1 value={searchSubject} onChangeHandler={setSearchSubject} placeholder="Search by subject" />
@@ -55,7 +55,7 @@ export const SearchPanelCms: FC<ISearchPanelCms> = ({
     clear=()=>{},
 }) => {
     return (
-        <div className="mb-4 p-4 grid grid-cols-4 gap-4 bg-white">
+        <div className="mb-4 p-4 grid md:grid-cols-4 gap-4 bg-white">
             <Input1 value={searchName} onChangeHandler={setSearchName} placeholder="Search by name" />
             <Input1 value={searchSlug} onChangeHandler={setSearchSlug} placeholder="Search by slug" />
             <Select2 value={searchStatus} onChangeHandler={setSearchStatus} list={["Select Status", "Active", "Inactive"]} />
@@ -91,7 +91,7 @@ export const SearchPanelUsers: FC<ISearchPanelUsers> = ({
     clear=()=>{},
 }) => {
     return (
-        <div className="mb-4 p-4 grid grid-cols-4 gap-4 bg-white">
+        <div className="mb-4 p-4 grid md:grid-cols-4 gap-4 bg-white">
             <Input1 value={searchName} onChangeHandler={setSearchName} placeholder="Search by name" />
             <Input1 value={searchEmail} onChangeHandler={setSearchEmail} placeholder="Search by email" />
             <Select2 value={searchEmailVerification} onChangeHandler={setSearchEmailVerification} list={["Select email verification status", "Yes", "No"]} />
@@ -117,7 +117,7 @@ export const SearchPanelCoinCategory: FC<ISearchPanelCoinCategory> = ({
     clear=()=>{},
 }) => {
     return (
-        <div className="mb-4 p-4 grid grid-cols-3 gap-4 bg-white">
+        <div className="mb-4 p-4 grid md:grid-cols-3 gap-4 bg-white">
             <Input1 value={searchTitle} onChangeHandler={setSearchTitle} placeholder="Search by title" />
             <Select2 value={searchStatus} onChangeHandler={setSearchStatus} list={["Select status", "Active", "Inactive"]} />
             <Button1 onClick={clear} text="Clear" />
@@ -140,7 +140,7 @@ export const SearchPanelCoins: FC<ISearchPanelCoins> = ({
     clear=()=>{},
 }) => {
     return (
-        <div className="mb-4 p-4 grid grid-cols-3 gap-4 bg-white">
+        <div className="mb-4 p-4 grid md:grid-cols-3 gap-4 bg-white">
             <Input1 value={searchName} onChangeHandler={setSearchName} placeholder="Search by name" />
             <Select2 value={searchStatus} onChangeHandler={setSearchStatus} list={["Select status", "Active", "Inactive"]} />
             <Button1 onClick={clear} text="Clear" />
@@ -169,7 +169,7 @@ export const SearchPanelTxBuyBnb: FC<ISearchPanelCoins> = ({
     clear=()=>{},
 }) => {
     return (
-        <div className="mb-4 p-4 grid grid-cols-4 gap-4 bg-white">
+        <div className="mb-4 p-4 grid md:grid-cols-4 gap-4 bg-white">
             <Input1 value={searchEmail} onChangeHandler={setSearchEmail} placeholder="Search by email" />
             <Input1 value={searchPaymentId} onChangeHandler={setSearchPaymentId} placeholder="Search by payment id" />
             <Select2 value={searchStatus} onChangeHandler={setSearchStatus} list={["Select Status", "In-Progress", "Success", "Failed"]} />
