@@ -72,6 +72,7 @@ const Manage = () => {
     const [totalSize, setTotalSize] = useState<number>(0);
     useEffect(() => {
         (async () => {
+            setLoading(true);
             let { status, content, message } = await altbaseService.getEmailTemplateList({
                 page,
                 perPage,
@@ -105,8 +106,10 @@ const Manage = () => {
             } else {
                 toast.error(message);
             }
+            setLoading(false);
         })();
     }, [perPage, page, searchName, searchSlug, searchSubject, searchFrom, searchFromEmail]);
+    const [loading, setLoading] = useState<boolean>(false);
     return (
         <div>
             <SearchPanelEmailTemplate
@@ -130,6 +133,11 @@ const Manage = () => {
                 changeCountPerPageHandler={setPerPage}
                 totalPages={totalPages}
                 totalCounts={totalSize}
+                propLoading={loading}
+                additionalBtns={[{
+                    text: "Add",
+                    clickHandler: () => navigate(`${ prefix }/email-template/add`)
+                }, ]}
             />
         </div>
     )

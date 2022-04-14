@@ -4,6 +4,8 @@ import Button2 from 'components/atoms/Button2';
 import { useEffect, useState } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
 import altbaseService from "services/altbaseService";
+import toast from "react-hot-toast";
+import parse from 'html-react-parser';
 
 const View = () => {
     const navigate = useNavigate();
@@ -13,7 +15,8 @@ const View = () => {
     const [subjectText, setSubjectText] = useState<string>("Verify your email address");
     const [fromNameText, setFromNameText] = useState<string>("<%=closing_text%>");
     const [emailText, setEmailText] = useState<string>("ainfo@altbase.com");
-    const [iframeSrc, setIframeSrc] = useState<string>("https://www.w3schools.com");
+    // const [iframeSrc, setIframeSrc] = useState<string>("https://www.w3schools.com");
+    const [htmlViewer, setHtmlViewer] = useState<string>("");
 
     const onBack = () => {
         navigate(-1);
@@ -22,7 +25,17 @@ const View = () => {
     useEffect(() => {
         (async () => {
             let { status, content, message } = await altbaseService.getEmailTemplateById(parseInt(id || "0"))
-            
+            if (status === "success") {
+                setNameText(content.template_name);
+                setSlugText(content.template_slug);
+                setSubjectText(content.template_subject);
+                setFromNameText(content.template_from);
+                setEmailText(content.template_from_mail);
+                setHtmlViewer(content.template_html);
+            } else {
+                toast.error(message);
+            }
+            console.log(status)
         })()
     }, []);
     return (
@@ -35,7 +48,10 @@ const View = () => {
                     <LabelComponent text={fromNameText} title="Template From Name"></LabelComponent>
                     <LabelComponent text={emailText} title="Template From Email"></LabelComponent>
                 </div>
-                <IframeComponent topText="Template HTML Preview" src={iframeSrc}></IframeComponent>
+                {/* <IframeComponent topText="Template HTML Preview" src={iframeSrc}></IframeComponent> */}
+                <div>
+                    { parse(htmlViewer) }
+                </div>
             </div>
             <div className='w-full flex justify-start mt-8'>
                 <Button2 className='w-32 ' text='Back' onClick={onBack}/>

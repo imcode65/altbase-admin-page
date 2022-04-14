@@ -88,8 +88,22 @@ export interface IEmailTemplate {
     template_from: string;
     template_from_mail?: string;
     template_html?: string;
+    template_variables?: string;
     created_at?: string;
 }
+export interface ICMS {
+    id?: number;
+    title: string;
+    slug?: string;
+    is_active: string;
+    content?: string;
+}
+export interface ICoinCategory {
+    id?: number;
+    title: string;
+    is_active: string;
+}
+
 export default {
     async login({email, password}: ILogin) {
         try {
@@ -220,7 +234,6 @@ export default {
         page: number;
         searchData: IEmailTemplate,
     }) {
-        console.log(params)
         try {
             let res = await altbaseServer.get("admin/email_template", {
                 params: params
@@ -258,11 +271,149 @@ export default {
             })
         }
     },
-    async addEmailTemplate() {
-
+    async addEmailTemplate(body: IEmailTemplate) {
+        try {
+            let res = await altbaseServer.post(`admin/email_template`, body);
+            let { data, status, message }: { data: IEmailTemplate; status: string; message: string } = res.data;
+            const result = {
+                status: status,
+                message: message,
+                content: data
+            }
+            return result;
+        } catch (err: any) {
+            return ({
+                status: "fail",
+                message: "Failed to getEmailTEmplateList",
+                content: err
+            })
+        }
     },
-    async updateEmailTemplate() {
+    async updateEmailTemplate(id: number, body: IEmailTemplate) {
+        try {
+            let res = await altbaseServer.put(`admin/email_template/${id}`, body);
+            let { data, status, message }: { data: IEmailTemplate; status: string; message: string } = res.data;
+            const result = {
+                status: status,
+                message: message,
+                content: data
+            }
+            return result;
+        } catch (err: any) {
+            return ({
+                status: "fail",
+                message: "Failed to getEmailTEmplateList",
+                content: err
+            })
+        }
+    },
+
+    // CMS
         
+    async getCMS(params: {
+        perPage: number;
+        page: number;
+        searchData: ICMS,
+    }) {
+        try {
+            let res = await altbaseServer.get("admin/cms", {
+                params: params
+            });
+            let { data, status, message }: { data: { pagination: IPagination; records: ICMS[] }; status: string; message: string } = res.data;
+            const result = {
+                status: status,
+                message: message,
+                content: data
+            }
+            return result;
+        } catch (err: any) {
+            return ({
+                status: "fail",
+                message: "Failed to get CMS",
+                content: err
+            })
+        }
+    },
+    async getCMSById(id: number) {
+        try {
+            let res = await altbaseServer.get(`admin/cms/${id}`);
+            let { data, status, message }: { data: ICMS[]; status: string; message: string } = res.data;
+            const result = {
+                status: status,
+                message: message,
+                content: data
+            }
+            return result;
+        } catch (err: any) {
+            return ({
+                status: "fail",
+                message: "Failed to getEmailTEmplateList",
+                content: err
+            })
+        }
+    },
+    async addCMS(body: ICMS) {
+        try {
+            let res = await altbaseServer.post(`admin/cms/`, body);
+            let { data, status, message }: { data: ICMS; status: string; message: string } = res.data;
+            const result = {
+                status: status,
+                message: message,
+                content: data
+            }
+            return result;
+        } catch (err: any) {
+            return ({
+                status: "fail",
+                message: "Failed to getEmailTEmplateList",
+                content: err
+            })
+        }
+    },
+    async updateCMS(id: number, body: ICMS) {
+        try {
+            let res = await altbaseServer.put(`admin/cms/${id}`, body);
+            let { data, status, message }: { data: ICMS; status: string; message: string } = res.data;
+            const result = {
+                status: status,
+                message: message,
+                content: data
+            }
+            return result;
+        } catch (err: any) {
+            return ({
+                status: "fail",
+                message: "Failed to getEmailTEmplateList",
+                content: err
+            })
+        }
+    },
+
+    // Coin Category
+
+    async getCoinCategory(params: {
+        perPage: number;
+        page: number;
+        searchData: ICoinCategory,
+    }) {
+        try{
+            let res = await altbaseServer.get("admin/coin_categories", {
+                params: params
+            });
+            let { data, status, message }: { data: { pagination: IPagination; records: ICoinCategory[] }; status: string; message: string } = res.data;
+            const result = {
+                status: status,
+                message: message,
+                content: data
+            }
+            return result;
+        } catch (err: any) {
+            return ({
+                status: "fail",
+                message: "Failed to getCoinCategory",
+                content: err
+            })
+        }
     }
 }
 

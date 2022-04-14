@@ -1,5 +1,4 @@
-import { FC, useState } from 'react';
-import { useNavigate } from 'react-router-dom';
+import { FC, useEffect, useState } from 'react';
 import IconButton from 'components/atoms/IconButton';
 import Paginator from 'components/atoms/Paginator';
 import Select1 from 'components/atoms/Select1';
@@ -21,33 +20,25 @@ interface IDataTable {
     totalCounts?: number;
     refreshHandler?: () => void;
     additionalBtns?: IAdditionalBtn[];
+    propLoading?: boolean;
 }
-const DataTable: FC<IDataTable> = ({ fields=[], datas=[], currentPage=1, changeCurrentPageHandler=()=>{}, changeCountPerPageHandler=()=>{}, totalPages=1, totalCounts=1, refreshHandler=()=>{}, additionalBtns=[] }) => {
-    const navigate = useNavigate();
+const DataTable: FC<IDataTable> = ({ fields=[], datas=[], currentPage=1, changeCurrentPageHandler=()=>{}, changeCountPerPageHandler=()=>{}, totalPages=1, totalCounts=1, refreshHandler=()=>{}, additionalBtns=[], propLoading=false }) => {
     const [loading, setLoading] = useState<boolean>(false);
     const [cntPerPage, setCntPerPage] = useState<number>(5);
+    useEffect(() => {
+        setLoading(propLoading);
+    }, [propLoading]);
     const paginatorHandler = (x: number) => {
         if (1 <= x && x <= totalPages) {
-            setLoading(true);
             changeCurrentPageHandler(x);
-            setTimeout(() => {
-                setLoading(false);
-            }, 1000);
         }
     }
     const perPageHandler = (val: string | number) => {
-        setLoading(true);
         setCntPerPage(typeof val === "string" ? parseInt(val) : val)
         changeCountPerPageHandler(typeof val === "string" ? parseInt(val) : val)
-        setTimeout(() => {
-            setLoading(false);
-        }, 1000);
     }
     return (
-        <div className='bg-white relative'>
-            { loading ? <div className='absolute w-full h-full flex justify-center items-center bg-gray-300 z-40'>
-                Loading
-            </div> : '' }
+        <div className='bg-white'>
             <div className='p-4 flex justify-between flex-wrap'>
                 <Select1 label='Item per page' value={cntPerPage} onChangeHandler={perPageHandler} list={[5, 10, 15, 50, 100]} />
                 <div className='flex flex-col md:flex-row gap-2'>
@@ -58,7 +49,10 @@ const DataTable: FC<IDataTable> = ({ fields=[], datas=[], currentPage=1, changeC
                 </div>
             </div>
             <div className='w-full px-2 overflow-hidden'>
-                <div className='overflow-auto'>
+                <div className='overflow-auto relative'>
+                    { loading ? <div className='absolute w-full h-full flex justify-center items-center bg-gray-300 z-40'>
+                        Loading
+                    </div> : '' }
                     <Table fields={fields} datas={datas} />
                 </div>
             </div>

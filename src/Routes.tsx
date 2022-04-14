@@ -11,6 +11,7 @@ import SiteSettings from 'pages/SiteSettings';
 import ApplicationSettings from 'pages/ApplicationSettings';
 import EmailTemplate from 'pages/emailTemplate/Index';
 import EmailTemplateManage from 'pages/emailTemplate/Manage';
+import EmailTemplateAdd from 'pages/emailTemplate/Add';
 import EmailTemplateEdit from 'pages/emailTemplate/Edit';
 import EmailTemplateView from 'pages/emailTemplate/View';
 import Cms from 'pages/cms/Index';
@@ -62,6 +63,7 @@ const AppRoutes = () => {
           <Route path='' element={<Navigate to='dashboard' />} />
           <Route path='email-template' element={<EmailTemplate />}>
             <Route path='manage' element={<EmailTemplateManage />} />
+            <Route path='add' element={<EmailTemplateAdd />} />
             <Route path='edit/:id' element={<EmailTemplateEdit />} />
             <Route path='view/:id' element={<EmailTemplateView />} />
           </Route>
