@@ -34,6 +34,8 @@ const Manage = () => {
     const [page, setPage] = useState<number>(1);
     const [perPage, setPerPage] = useState<number>(5);
     const [loading, setLoading] = useState<boolean>(false);
+    const [totalPages, setTotalPages] = useState<number>(0);
+    const [totalSize, setTotalSize] = useState<number>(0);
     const clear = () => {
         setSearchName("");
         setSearchSlug("");
@@ -53,6 +55,10 @@ const Manage = () => {
                 }
             });
             if( status === "success") {
+                setPage(content.pagination.page);
+                setPerPage(content.pagination.perPage);
+                setTotalPages(content.pagination.totalPages);
+                setTotalSize(content.pagination.totalSize);
                 setTableDatas(() => content.records.map((record: ICMS) => ({
                     ...record,
                     status: <SwitchButton onChangeHandler={async (x: boolean) => {
@@ -85,10 +91,19 @@ const Manage = () => {
                 setSearchStatus={setSearchStatus}
                 clear={clear}
             />
-            <DataTable fields={tableFields} datas={tableDatas} additionalBtns={[{
-                text: "Add",
-                clickHandler: () => navigate(`${ prefix }/cms/add`)
-            }]} />
+            <DataTable 
+                fields={tableFields} 
+                datas={tableDatas} additionalBtns={[{
+                    text: "Add",
+                    clickHandler: () => navigate(`${ prefix }/cms/add`)
+                }]} 
+                changeCurrentPageHandler={setPage}
+                changeCountPerPageHandler={setPerPage}
+                currentPage={page}
+                totalPages={totalPages}
+                totalCounts={totalSize}
+                propLoading={loading}
+            />
         </div>
     )
 }

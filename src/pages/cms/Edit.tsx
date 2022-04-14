@@ -20,7 +20,6 @@ const Edit = () => {
     useEffect(() => {
         (async() => {
             let { status, content, message } = await altbaseService.getCMSById(parseInt(id || "0"));
-            console.log(content);
             if( status === "success") {
                 setContentText(content.content);
                 setTitleText(content.title);

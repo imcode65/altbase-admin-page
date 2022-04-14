@@ -12,7 +12,7 @@ const Manage = () => {
     const [tableFields, setTableFields] = useState<IField[]>([
         {
             text: "Sr.no.",
-            code: "sr_no"
+            code: "id"
         }, {
             text: "Title",
             code: "title"
@@ -24,33 +24,22 @@ const Manage = () => {
             code: "action"
         }, 
     ])
-    const [tableDatas, setTableDatas] = useState<any[]>([
-        // {
-        //     sr_no: 1,
-        //     title: "Featured Coin",
-        //     status: <SwitchButton onChangeHandler={async (x: boolean) => {
-        //         return x;
-        //     }} confirming />,
-        //     action: {
-        //         edit: true,
-        //         editHandler: (id: number) => {
-        //             navigate(`${ prefix }/coin-category/edit/${ id }`);
-        //         },
-        //         view: false,
-        //     }
-        // }
-    ]);
+    const [tableDatas, setTableDatas] = useState<any[]>([]);
     const [searchTitle, setSearchTitle] = useState<string>("");
-    const [searchStatus, setSearchStatus] = useState<string>("");
+    const [searchStatus, setSearchStatus] = useState<string>("Select Status");
     const [page, setPage] = useState<number>(1);
     const [perPage, setPerPage] = useState<number>(5);
+    const [totalPages, setTotalPages] = useState<number>(0);
+    const [totalSize, setTotalSize] = useState<number>(0);
+    const [loading, setLoading] = useState<boolean>(false);
     const clear = () => {
         setSearchTitle("");
-        setSearchStatus("");
+        setSearchStatus("Select Status");
     };
 
     useEffect(() => {
         (async() => {
+            setLoading(true);
             let { status, content, message } = await altbaseService.getCoinCategory({
                 page,
                 perPage,
@@ -60,7 +49,10 @@ const Manage = () => {
                 }
             });
             if( status === "success") {
-                console.log(content);
+                setPage(content.pagination.page);
+                setPerPage(content.pagination.perPage);
+                setTotalPages(content.pagination.totalPages);
+                setTotalSize(content.pagination.totalSize);
                 setTableDatas(() => content.records.map((record: ICoinCategory) => ({
                     ...record,
                     status: <SwitchButton onChangeHandler={async (x: boolean) => {
@@ -74,8 +66,9 @@ const Manage = () => {
                     }
                 })).sort((a: ICoinCategory, b: ICoinCategory) => ((a?.id || 0) - (b?.id || 0))))
             }
+            setLoading(false);
         })();
-    }, []);
+    }, [searchTitle, searchStatus, perPage, page]);
 
     return (
         <div>
@@ -86,10 +79,20 @@ const Manage = () => {
                 setSearchStatus={setSearchStatus}
                 clear={clear}
             />
-            <DataTable fields={tableFields} datas={tableDatas} additionalBtns={[{
-                text: "Add",
-                clickHandler: () => navigate(`${ prefix }/coin-category/add`)
-            }, ]} />
+            <DataTable 
+                fields={tableFields} 
+                datas={tableDatas} 
+                additionalBtns={[{
+                    text: "Add",
+                    clickHandler: () => navigate(`${ prefix }/coin-category/add`)
+                }, ]} 
+                changeCurrentPageHandler={setPage}
+                changeCountPerPageHandler={setPerPage}
+                currentPage={page}
+                totalPages={totalPages}
+                totalCounts={totalSize}
+                propLoading={loading}
+            />
         </div>
     )
 }

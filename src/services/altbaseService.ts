@@ -101,7 +101,15 @@ export interface ICMS {
 export interface ICoinCategory {
     id?: number;
     title: string;
-    is_active: string;
+    is_active?: string;
+    allRecords?: string;
+}
+export interface ICoinNews {
+    id?: number;
+    title: string;
+    coin_id: string;
+    is_active?: string;
+    allRecords?: string;
 }
 
 export default {
@@ -229,6 +237,7 @@ export default {
     },
 
     // Email Template
+
     async getEmailTemplateList(params: {
         perPage: number;
         page: number;
@@ -302,7 +311,7 @@ export default {
         } catch (err: any) {
             return ({
                 status: "fail",
-                message: "Failed to getEmailTEmplateList",
+                message: "Failed to update email template",
                 content: err
             })
         }
@@ -347,7 +356,7 @@ export default {
         } catch (err: any) {
             return ({
                 status: "fail",
-                message: "Failed to getEmailTEmplateList",
+                message: "Failed to get CMS by id",
                 content: err
             })
         }
@@ -365,7 +374,7 @@ export default {
         } catch (err: any) {
             return ({
                 status: "fail",
-                message: "Failed to getEmailTEmplateList",
+                message: "Failed to add CMS",
                 content: err
             })
         }
@@ -383,7 +392,7 @@ export default {
         } catch (err: any) {
             return ({
                 status: "fail",
-                message: "Failed to getEmailTEmplateList",
+                message: "Failed to update CMS",
                 content: err
             })
         }
@@ -414,7 +423,89 @@ export default {
                 content: err
             })
         }
-    }
+    },
+    async getCoinCategoryById(id: number) {
+        try {
+            let res = await altbaseServer.get(`admin/coin_categories/${id}`);
+            let { data, status, message }: { data: ICoinCategory[]; status: string; message: string } = res.data;
+            const result = {
+                status: status,
+                message: message,
+                content: data
+            }
+            return result;
+        } catch (err: any) {
+            return ({
+                status: "fail",
+                message: "Failed to get Coin Category by id",
+                content: err
+            })
+        }
+    },
+    async updateCoinCategory(id: number, body: ICoinCategory) {
+        try {
+            let res = await altbaseServer.put(`admin/coin_categories/${id}`, body);
+            let { data, status, message }: { data: ICoinCategory; status: string; message: string } = res.data;
+            const result = {
+                status: status,
+                message: message,
+                content: data
+            }
+            return result;
+        } catch (err: any) {
+            return ({
+                status: "fail",
+                message: "Failed to update coin category",
+                content: err
+            })
+        }
+    },
+    async addCoinCategory(body: ICoinCategory) {
+        try {
+            let res = await altbaseServer.post(`admin/coin_categories/`, body);
+            let { data, status, message }: { data: ICoinCategory; status: string; message: string } = res.data;
+            const result = {
+                status: status,
+                message: message,
+                content: data
+            }
+            console.log(result);
+            return result;
+        } catch (err: any) {
+            return ({
+                status: "fail",
+                message: "Failed to add coin category",
+                content: err
+            })
+        }
+    },
+
+    // Coins News
+
+    async getCoinNews(params: {
+        perPage: number;
+        page: number;
+        searchData: ICoinNews,
+    }) {
+        try{
+            let res = await altbaseServer.get("admin/coin_news", {
+                params: params
+            });
+            let { data, status, message }: { data: { pagination: IPagination; records: ICoinNews[] }; status: string; message: string } = res.data;
+            const result = {
+                status: status,
+                message: message,
+                content: data
+            }
+            return result;
+        } catch (err: any) {
+            return ({
+                status: "fail",
+                message: "Failed to get coin news",
+                content: err
+            })
+        }
+    },
 }
 
 const old_token = localStorage.getItem(localStorageTokenKey)

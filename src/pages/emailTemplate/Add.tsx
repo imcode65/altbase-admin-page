@@ -31,7 +31,6 @@ const Add = () => {
             template_html,
             template_variables,
         })
-        console.log(content)
         if (status === "success") {
             toast.success(message);
         } else {
