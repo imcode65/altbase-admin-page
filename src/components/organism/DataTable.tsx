@@ -16,24 +16,32 @@ interface IDataTable {
     fields?: IField[];
     currentPage?: number;
     changeCurrentPageHandler?: (x: number) => void;
-    totalPage?: number;
+    changeCountPerPageHandler?: (x: number) => void;
+    totalPages?: number;
     totalCounts?: number;
     refreshHandler?: () => void;
     additionalBtns?: IAdditionalBtn[];
 }
-const DataTable: FC<IDataTable> = ({ fields=[], datas=[], currentPage=1, changeCurrentPageHandler=()=>{}, totalPage=1, totalCounts=1, refreshHandler=()=>{}, additionalBtns=[] }) => {
+const DataTable: FC<IDataTable> = ({ fields=[], datas=[], currentPage=1, changeCurrentPageHandler=()=>{}, changeCountPerPageHandler=()=>{}, totalPages=1, totalCounts=1, refreshHandler=()=>{}, additionalBtns=[] }) => {
     const navigate = useNavigate();
     const [loading, setLoading] = useState<boolean>(false);
     const [cntPerPage, setCntPerPage] = useState<number>(5);
-    const totalPages = 1;
     const paginatorHandler = (x: number) => {
         if (1 <= x && x <= totalPages) {
             setLoading(true);
+            changeCurrentPageHandler(x);
             setTimeout(() => {
                 setLoading(false);
-                changeCurrentPageHandler(x);
-            }, 200);
+            }, 1000);
         }
+    }
+    const perPageHandler = (val: string | number) => {
+        setLoading(true);
+        setCntPerPage(typeof val === "string" ? parseInt(val) : val)
+        changeCountPerPageHandler(typeof val === "string" ? parseInt(val) : val)
+        setTimeout(() => {
+            setLoading(false);
+        }, 1000);
     }
     return (
         <div className='bg-white relative'>
@@ -41,7 +49,7 @@ const DataTable: FC<IDataTable> = ({ fields=[], datas=[], currentPage=1, changeC
                 Loading
             </div> : '' }
             <div className='p-4 flex justify-between flex-wrap'>
-                <Select1 label='Item per page' value={cntPerPage} onChangeHandler={val => setCntPerPage(typeof val === "string" ? parseInt(val) : val)} list={[5, 10, 15, 50, 100]} />
+                <Select1 label='Item per page' value={cntPerPage} onChangeHandler={perPageHandler} list={[5, 10, 15, 50, 100]} />
                 <div className='flex flex-col md:flex-row gap-2'>
                     { additionalBtns.map((addBtn, id) => (
                         <Button3 key={id} text={addBtn.text || ""} onClick={addBtn.clickHandler} />

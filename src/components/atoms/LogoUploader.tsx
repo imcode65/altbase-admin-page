@@ -5,11 +5,11 @@ import { v4 as uuidv4 } from 'uuid';
 
 const id = uuidv4();
 
-const LogoUploader = () => {
-    const [previewLogo, setPreviewLogo] = useState<any>(XLogo);
+const LogoUploader = ({ url = XLogo}) => {
+    const [previewLogo, setPreviewLogo] = useState<any>(url);
     return (
         <div className="relative flex flex-col w-full items-center">
-            <img className='w-auto h-56 m-6 rounded-xl overflow-hidden' src={previewLogo} alt="XLogo" />
+            <img className='w-auto h-56 m-6 rounded-xl overflow-hidden' src={url} alt="XLogo" />
             <input id={id} type="file" accept='image/*' onChange={(e: any) => setPreviewLogo(URL.createObjectURL(e.target.files[0]))} className='hidden' />
             <label htmlFor={id}>
                 <Button1 className='w-56' rounded text='UPLOAD' />

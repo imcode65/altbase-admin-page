@@ -23,10 +23,10 @@ const Table: FC<ITable> = ({ fields=[], datas=[] }) => {
                         { field.code === 'action' ? (
                             <div className='flex'>
                             { data.action.edit ? (
-                                <IconEdit clickHandler={() => data.action.editHandler(data.sr_no)} className='mr-4 opacity-40 cursor-pointer' />
+                                <IconEdit clickHandler={() => data.action.editHandler(data.id)} className='mr-4 opacity-40 cursor-pointer' />
                             ) : "" }
                             { data.action.view ? (
-                                <IconEye clickHandler={() => data.action.viewHandler(data.sr_no)} className='opacity-40 cursor-pointer' />
+                                <IconEye clickHandler={() => data.action.viewHandler(data.id)} className='opacity-40 cursor-pointer' />
                             ) : "" }
                             </div>
                         ) : data[field.code] || "" }

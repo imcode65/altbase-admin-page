@@ -1,0 +1,1 @@
+export const localStorageTokenKey = "altbase-token";

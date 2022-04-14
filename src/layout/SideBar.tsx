@@ -7,8 +7,10 @@ import { LayoutContext } from 'context/layoutContext';
 import { prefix, menuInfo } from 'constants/menuInfo';
 import { md } from 'constants/screenSize';
 import { useMediaQuery } from "react-responsive";
+import { useAppDispatch, useAppSelector } from 'store/hooks';
 
 const SideBar = () => {
+    const { authInfo } = useAppSelector(state => state.auth);
     let isPortrait = useMediaQuery({ query: `(max-width: ${md}px)` });
     const location = useLocation();
     const { sidemenuOpened, sidemenuToggle } = useContext(LayoutContext);
@@ -19,7 +21,7 @@ const SideBar = () => {
                     <Logo></Logo>
                 </div>
                 <div className=''>
-                    <GradientText className='w-full flex justify-center mb-4' text='Admin' />
+                    <GradientText className='w-full flex justify-center mb-4' text={authInfo?.name} />
                     <ul>
                     { menuInfo.filter(val => val.breadCrumbActiveNum === 1).map((menuItem, id) => (
                         <MenuItem to={prefix + menuItem.matchingUrl} key={id} Icon={menuItem.Icon} text={menuItem.text} active={location.pathname.startsWith(prefix + menuItem.matchingUrlSidebar)} />

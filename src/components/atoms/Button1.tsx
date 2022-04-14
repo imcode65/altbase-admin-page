@@ -8,9 +8,10 @@ interface IButton1 {
     rounded?: boolean;
     onClick?: () => void;
     confirming?: boolean;
+    disabled?: boolean;
 }
 
-const Button1: FC<IButton1> = ({ className="", text="", rounded=false, onClick=()=>{}, confirming=false }) => {
+const Button1: FC<IButton1> = ({ className="", text="", rounded=false, onClick=()=>{}, confirming=false, disabled=false }) => {
     return (
         <div onClick={async () => {
             if (confirming) {
@@ -24,7 +25,7 @@ const Button1: FC<IButton1> = ({ className="", text="", rounded=false, onClick=(
             } else {
                 onClick();
             }
-        }} className={`${className} h-10 p-2 ${ rounded ? "rounded-full" : "rounded" } flex justify-center items-center font-sm text-base text-white bg-color-20 hover:bg-black transition-all cursor-pointer active:ring-0 active:ring-black py-1`}>{text}</div>
+        }} className={`${className} h-10 p-2 ${ rounded ? "rounded-full" : "rounded" } flex justify-center items-center font-sm text-base text-white bg-color-20 hover:bg-black transition-all ${ disabled ? "cursor-not-allowed" : "cursor-pointer"} active:ring-0 active:ring-black py-1`}>{text}</div>
     )
 }
 

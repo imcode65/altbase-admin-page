@@ -8,19 +8,40 @@ import IconEnvelope from "components/icons/IconEnvelope";
 import IconLock from "components/icons/IconLock";
 import altbaseService from "services/altbaseService";
 import { useState } from "react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import ReCAPTCHA from "react-google-recaptcha";
+import toast from 'react-hot-toast';
+import { useSelector, useDispatch } from "react-redux";
+import * as Actions from 'store/actions';
 
 const Login = () => {
+    const navigate = useNavigate();
+    const dispatch = useDispatch();
     const [email, setEmail] = useState<string>("abhijeet.rwaltz@gmail.com");
     const [password, setPassword] = useState<string>("Password@123");
     const [recaptcha, setRecaptcha] = useState<string>("");
+    const [signing, setSigning] = useState<boolean>(false);
     const submitHandler = () => {
         if (email.trim() !== "" && password.trim() !== "") {
             (async () => {
+                setSigning(true);
                 let res = await altbaseService.login({email, password});
-
+                if (res.success) {
+                    toast.success(res.message);
+                    dispatch(Actions.setAuthUser({
+                        email: res.content.details.email,
+                        name: res.content.details.name,
+                        picture: res.content.details.picture,
+                        role: res.content.details.role,
+                    }));
+                    navigate("/admin/dashboard")
+                } else {
+                    toast.error(res.message);
+                }
+                setSigning(false);
             })();
+        } else {
+            toast.error("Email and password are necessary fields");
         }
     }
     const handleRecaptcha = (val: string|null) => {
@@ -54,7 +75,7 @@ const Login = () => {
                         sitekey="6LfHjVUfAAAAAM7jPvNGFQw8WXAx3Yul-MdXeBzq"
                         onChange={handleRecaptcha}
                     /> */}
-                    <Button1 onClick={submitHandler} className="w-full mb-5" text="Sign In" />
+                    <Button1 disabled={signing} onClick={submitHandler} className="w-full mb-5" text={signing ? "Signing ..." : "Sign In"} />
                     <div className="flex justify-between items-center">
                         <Checkbox1 text="Remember Me" />
                         <Link to={"/forgot-password"}>
