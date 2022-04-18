@@ -1,20 +1,39 @@
-import { useState } from 'react';
-import { useNavigate } from 'react-router-dom';
+import { useEffect, useState } from 'react';
+import { useNavigate, useParams } from 'react-router-dom';
 import LabelComponent from 'components/atoms/LabelComponent';
 import Button2 from 'components/atoms/Button2';
+import toast from 'react-hot-toast';
+import altbaseService from 'services/altbaseService';
 
 const Details = () => {
     const navigate = useNavigate();
-    const [paymentID, setPaymentID] = useState<string>("8976d52d-5ccc-4633-9a46-f6b919b23543");
-    const [email, setEmail] = useState<string>("KalBet0605@gmaill.com");
-    const [createdAt, setCreatedAt] = useState<string>("2022-03-24 12:26:55");
-    const [uuid, setUuid] = useState<string>("e2bde230-da61-11eb-9da3-0bf437a03a49");
+    const { id } = useParams();
+    const [paymentID, setPaymentID] = useState<string>("");
+    const [email, setEmail] = useState<string>("");
+    const [createdAt, setCreatedAt] = useState<string>("");
+    const [uuid, setUuid] = useState<string>("");
     const [status, setStatus] = useState<boolean>(true);
-    const [walletAddress, setWalletAddress] = useState<string>("0x7ec7A13381973Aa0E3B3ADE652F2e1eD98A31882");
+    const [walletAddress, setWalletAddress] = useState<string>("");
 
     const onBack = () => {
         navigate(-1);
     }
+
+    useEffect(() => {
+        (async () => {
+            const {status, message, content} = await altbaseService.getTxHistoryById(parseInt(id || ""));
+            if (status === "success") {
+                setPaymentID(content.payment_id);
+                setEmail(content.user_details.email);
+                setCreatedAt(content.created_at);
+                setUuid(content.user_details.uuid);
+                setStatus(content.status === 0 ? true : false);
+                setWalletAddress(content.wallet_details.wallet_address);
+            } else {
+                toast.error(message);
+            }
+        })()
+    }, []);
 
     return (
         <div className="p-4 bg-white flex flex-col">

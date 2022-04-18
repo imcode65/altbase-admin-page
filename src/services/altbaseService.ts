@@ -1,6 +1,7 @@
 import axios from "axios";
 import { altbaseUri } from "constants/apiConfig";
 import { localStorageTokenKey } from 'constants/keywords';
+import ForgotPassword from "pages/ForgotPassword";
 
 export const setAxiosHeader = (account: string) => {
     altbaseServer.defaults.headers.common['requester'] = account;
@@ -18,6 +19,9 @@ export const altbaseServer = axios.create({
 interface ILogin {
     email: string;
     password: string;
+}
+interface IForgotPwd {
+    email: string;
 }
 interface ISiteSetting {
     application_name: string;
@@ -108,8 +112,115 @@ export interface ICoinNews {
     id?: number;
     title: string;
     coin_id: string;
+    description?: string;
+    thumbnail_url?: string;
+    banner_url?: string;
     is_active?: string;
-    allRecords?: string;
+    coinDetails?: {
+        id: number;
+        coin_category_id: number;
+        name: string;
+        symbol: string;
+        is_active: number;
+    }
+}
+export interface IUser {
+    id?: number;
+    uuid?: string;
+    invited_by?: number;
+    invitation_code?: string;
+    is_two_factor_enabled?: number;
+    two_factor_secret?: any;
+    email?: string;
+    name?: string;
+    password?: string;
+    picture?: string;
+    is_active?: number;
+    is_notification_enabled?: number;
+    presence?: number;
+    invite_limit?: number;
+    email_verified_at?: string;
+    last_seen_at?: string;
+    last_login_at?: string;
+    created_at?: Date;
+    updated_at?: Date;
+    deleted_at?: Date;
+    wallet?: {
+        id?: number;
+        user_id: number;
+        wallet_address: string;
+        balance_100x: number;
+        balance_bnb: number;
+        created_at: Date;
+        updated_at: Date;
+    };
+    invitedBy?: {
+        id?: number;
+        email?: string;
+        invitation_code?: string;
+    };
+    invitedCount?: number;
+    roles?: [{
+        id?: number;
+        name?: string;
+        description?: string;
+    }]
+}
+export interface ICoin {
+    id?: number;
+    coin_category_id?: number;
+    name?: string;
+    symbol?: string;
+    about?: string;
+    website_url?: string;
+    contract_address?: string;
+    pancake_router_path_address?: string;
+    pancake_router_address_version?: string;
+    transfer_fee_applicable?: string;
+    coinmarketcap_listed_url?: string;
+    social_media_links?: string;
+    is_active?: number;
+    buy_criteria?: string;
+    logo?: string;
+    coinCategory?: ICoinCategory;
+}
+export interface IContractAddress {
+    contract_address : string;
+    pancake_router_address_version  : number;
+}
+export interface INotification {
+    type?: string;
+    user_id?: number,
+    title?: string,
+    description?: string
+}
+export interface ITx {
+    id?: number;
+    email?: string;
+    name?: string;
+    user_id?: number;
+    payment_id?: string;
+    status?: number;
+    created_at?: string;
+    updated_at?: string;
+    user_details?: {
+        id?: number;
+        uuid?: string;
+        email?: string;
+        name?: string
+    };
+    wallet_details?: {
+        id?: number;
+        user_id?: number;
+        wallet_address?: string;
+    },
+    simplex_event_details?: [{
+        id?: number;
+        simplex_event_id?: number;
+        data?: string;
+        created_at?: string;
+        updated_at?: string;
+    }]
 }
 
 export default {
@@ -139,6 +250,34 @@ export default {
                 message: "Failed to login",
                 content: err
             })
+        }
+    },
+    async forgotPassword({email}: IForgotPwd) {
+        try {
+            const res = await altbaseServer.post("admin/auth/forgot_password", {
+                email: email
+            });
+            let { status, message }: { status: string; message: string } = res.data;
+            const result = {
+                status: status,
+                message: message,
+                content: {}
+            }
+            return result;
+        } catch (err: any) {
+            if (err?.response?.data) {
+                return ({
+                    status: 'failed',
+                    message: err?.response?.data.message,
+                    content: err
+                })
+            } else {
+                return ({
+                    status: 'failed',
+                    message: "Failed",
+                    content: err
+                })
+            }
         }
     },
     // Dashboard
@@ -469,7 +608,6 @@ export default {
                 message: message,
                 content: data
             }
-            console.log(result);
             return result;
         } catch (err: any) {
             return ({
@@ -502,6 +640,354 @@ export default {
             return ({
                 status: "fail",
                 message: "Failed to get coin news",
+                content: err
+            })
+        }
+    },
+
+    async getCoinNewsById(id: number) {
+        try {
+            let res = await altbaseServer.get(`admin/coin_news/${id}`);
+            let { data, status, message }: { data: ICoinNews[]; status: string; message: string } = res.data;
+            const result = {
+                status: status,
+                message: message,
+                content: data
+            }
+            return result;
+        } catch (err: any) {
+            return ({
+                status: "fail",
+                message: "Failed to get Coin-News by id",
+                content: err
+            })
+        }
+    },
+
+    async addCoinNews(body: ICoinNews) {
+        try {
+            let res = await altbaseServer.post(`admin/coin_news/`, body);
+            console.log(body);
+            let { data, status, message }: { data: ICoinCategory; status: string; message: string } = res.data;
+            const result = {
+                status: status,
+                message: message,
+                content: data
+            }
+            console.log(result);
+            return result;
+        } catch (err: any) {
+            return ({
+                status: "fail",
+                message: "Failed to add coin category",
+                content: err
+            })
+        }
+    },
+    // Users
+
+    async generateUUID() {
+        try{
+            let res = await altbaseServer.post("admin/users/generate_uuid");
+            let { status, message }: { status: string; message: string } = res.data;
+            const result = {
+                status: status,
+                message: message,
+                content: {}
+            }
+            return result;
+        } catch (err: any) {
+            return ({
+                status: "fail",
+                message: "Failed to generate UUID",
+                content: err
+            })
+        }
+    },
+    async getUsersList(params: {
+        perPage: number;
+        page: number;
+        searchData: IUser, // only name, email, email_verified_at, is_two_factor_enabled, is_active
+    }) {
+        try{
+            let res = await altbaseServer.get("admin/users", {
+                params: params
+            });
+            let { data, status, message }: { data: { pagination: IPagination; records: IUser[] }; status: string; message: string } = res.data;
+            const result = {
+                status: status,
+                message: message,
+                content: data
+            }
+            return result;
+        } catch (err: any) {
+            return ({
+                status: "fail",
+                message: "Failed to get users list",
+                content: err
+            })
+        }
+    },
+    async addUser(body: {
+        name: string;
+        email: string;
+        password: string;
+        confirm_password: string;
+        role?: string;
+    }) {
+        try {
+            body.role = "user";
+            let res = await altbaseServer.post(`admin/users`, body);
+            let { data, status, message }: { data?: IUser; status: string; message: string } = res.data;
+            const result = {
+                status: status,
+                message: message,
+                content: data
+            }
+            return result;
+        } catch (err: any) {
+            return ({
+                status: "fail",
+                message: "Failed to register new user",
+                content: err
+            })
+        }
+    },
+    async getUser(id: number) {
+        try{
+            let res = await altbaseServer.get(`admin/users/${id}`);
+            let { data, status, message }: { data: IUser; status: string; message: string } = res.data;
+            const result = {
+                status: status,
+                message: message,
+                content: data
+            }
+            return result;
+        } catch (err: any) {
+            return ({
+                status: "fail",
+                message: "Failed to get user detail",
+                content: err
+            })
+        }
+    },
+    async updateUser(id: number, body: IUser) {
+        try {
+            let res = await altbaseServer.put(`admin/users/${id}`, body);
+            let { data, status, message }: { data: IUser; status: string; message: string } = res.data;
+            const result = {
+                status: status,
+                message: message,
+                content: data
+            }
+            return result;
+        } catch (err: any) {
+            return ({
+                status: "fail",
+                message: "Failed to update user",
+                content: err
+            })
+        }
+    },
+
+    // Coins
+
+    async addCoin(body: ICoin) {
+        try {
+            let res = await altbaseServer.post(`admin/coins`, body);
+            let { data, status, message }: { data?: ICoin; status: string; message: string } = res.data;
+            const result = {
+                status: status,
+                message: message,
+                content: data
+            }
+            return result;
+        } catch (err: any) {
+            return ({
+                status: "fail",
+                message: "Failed to register new coin",
+                content: err
+            })
+        }
+    },
+    async verifyContractAddress(body: IContractAddress) {
+        try {
+            let res = await altbaseServer.post(`admin/coins/verify_contract_address`, body);
+            let { data, status, message }: { data?: IContractAddress; status: string; message: string } = res.data;
+            const result = {
+                status: status,
+                message: message,
+                content: data
+            }
+            return result;
+        } catch (err: any) {
+            return ({
+                status: "fail",
+                message: "Failed to register new coin",
+                content: err
+            })
+        }
+    },
+    async getCoinList(params: {
+        perPage: number;
+        page: number;
+        searchData: ICoin, // only name, email, email_verified_at, is_two_factor_enabled, is_active
+    }) {
+        try{
+            let res = await altbaseServer.get("admin/coins", {
+                params: params
+            });
+            let { data, status, message }: { data: { pagination: IPagination; records: ICoin[] }; status: string; message: string } = res.data;
+            const result = {
+                status: status,
+                message: message,
+                content: data
+            }
+            return result;
+        } catch (err: any) {
+            return ({
+                status: "fail",
+                message: "Failed to get coins list",
+                content: err
+            })
+        }
+    },
+    async getCoinById(id: number) {
+        try {
+            let res = await altbaseServer.get(`admin/coins/${id}`);
+            let { data, status, message }: { data: ICoin; status: string; message: string } = res.data;
+            const result = {
+                status: status,
+                message: message,
+                content: data
+            }
+            return result;
+        } catch (err: any) {
+            return ({
+                status: "fail",
+                message: "Failed to getEmailTEmplateById",
+                content: err
+            })
+        }
+    },
+    async updateCoin(id: number, body: ICoin) {
+        try {
+            let res = await altbaseServer.put(`admin/coins/${id}`, body);
+            let { data, status, message }: { data: ICoin; status: string; message: string } = res.data;
+            const result = {
+                status: status,
+                message: message,
+                content: data
+            }
+            return result;
+        } catch (err: any) {
+            return ({
+                status: "fail",
+                message: "Failed to update coin",
+                content: err
+            })
+        }
+    },
+    async updateCoinStatus(id: number, body: {
+        is_active: number
+    }) {
+        try {
+            let res = await altbaseServer.put(`admin/coins/status/${id}`, body);
+            let { data, status, message }: { data: {is_active: number}; status: string; message: string } = res.data;
+            const result = {
+                status: status,
+                message: message,
+                content: data
+            }
+            return result;
+        } catch (err: any) {
+            return ({
+                status: "fail",
+                message: "Failed to update coin status",
+                content: err
+            })
+        }
+    },
+    async getSocialMediaType() {
+        try {
+            let res = await altbaseServer.get(`admin/coins/social_media_type`);
+            let { data, status, message }: { data: any[]; status: string; message: string } = res.data;
+            const result = {
+                status: status,
+                message: message,
+                content: data
+            }
+            return result;
+        } catch (err: any) {
+            return ({
+                status: "fail",
+                message: "Failed to get social media types",
+                content: err
+            })
+        }
+    },
+
+    // Notification
+
+    async pushNotification(body: INotification) {
+        try {
+            let res = await altbaseServer.post(`admin/notification/send_push_notification`, body);
+            let { data, status, message }: { data?: INotification; status: string; message: string } = res.data;
+            const result = {
+                status: status,
+                message: message,
+                content: data
+            }
+            return result;
+        } catch (err: any) {
+            return ({
+                status: "fail",
+                message: "Failed to register new coin",
+                content: err
+            })
+        }
+    },
+
+    // Tx History
+
+    async getTxHistory(params: {
+        perPage: number;
+        page: number;
+        searchData: ITx, // only name, email, email_verified_at, is_two_factor_enabled, is_active
+    }) {
+        try{
+            let res = await altbaseServer.get("admin/transaction_history/buy_bnb", {
+                params: params
+            });
+            let { data, status, message }: { data: { pagination: IPagination; records: ITx[] }; status: string; message: string } = res.data;
+            const result = {
+                status: status,
+                message: message,
+                content: data
+            }
+            return result;
+        } catch (err: any) {
+            return ({
+                status: "fail",
+                message: "Failed to get tx history list",
+                content: err
+            })
+        }
+    },
+    async getTxHistoryById(id: number) {
+        try {
+            let res = await altbaseServer.get(`admin/transaction_history/buy_bnb/details/${id}`);
+            let { data, status, message }: { data: ITx; status: string; message: string } = res.data;
+            const result = {
+                status: status,
+                message: message,
+                content: data
+            }
+            return result;
+        } catch (err: any) {
+            return ({
+                status: "fail",
+                message: "Failed to get Tx History",
                 content: err
             })
         }

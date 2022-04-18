@@ -5,6 +5,7 @@ import Button2 from 'components/atoms/Button2';
 import Button1 from 'components/atoms/Button1';
 import Select3 from 'components/atoms/Select3';
 import toast from 'react-hot-toast';
+import altbaseService from "services/altbaseService";
 
 const Add = () => {
     const navigate = useNavigate();
@@ -15,8 +16,24 @@ const Add = () => {
         navigate(-1);
     }
 
-    const saveHandler = () => {
-        toast.success('Successfully toasted!')
+    const addHandler = async () => {
+        let resVerify = await altbaseService.verifyContractAddress({
+            contract_address: contactAddress,
+            pancake_router_address_version: pancake === "Router Address V1" ? 1 : 2,
+        })
+        if (resVerify.status === "success") {
+            let { status, content, message } = await altbaseService.addCoin({
+                contract_address: contactAddress,
+                pancake_router_address_version: pancake === "Router Address V1" ? "1" : "2",
+            })
+            if (status === "success") {
+                toast.success(message);
+            } else {
+                toast.error(message);
+            }
+        } else {
+            toast.error(resVerify.message);
+        }
     }
     
     return (
@@ -26,7 +43,7 @@ const Add = () => {
                 <Select3 label="Pancake Router Address Version *" list={["Select Pancake Router Address Version", "Router Address V1", "Router Address V2"]}></Select3>
             </div>
             <div className='w-full flex justify-center mt-8 col-span-3'>
-                <Button1 className='w-32 mr-2' text='Save' confirming onClick={saveHandler} />
+                <Button1 className='w-32 mr-2' text='Save' confirming onClick={addHandler} />
                 <Button2 className='w-32' text='Back' onClick={onBack}/>
             </div>
         </div>

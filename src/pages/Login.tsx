@@ -7,12 +7,13 @@ import Button1 from "components/atoms/Button1";
 import IconEnvelope from "components/icons/IconEnvelope";
 import IconLock from "components/icons/IconLock";
 import altbaseService from "services/altbaseService";
-import { useState } from "react";
+import { useState, useContext } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import ReCAPTCHA from "react-google-recaptcha";
 import toast from 'react-hot-toast';
 import { useSelector, useDispatch } from "react-redux";
 import * as Actions from 'store/actions';
+import { LayoutContext } from 'context/layoutContext';
 
 const Login = () => {
     const navigate = useNavigate();
@@ -21,9 +22,11 @@ const Login = () => {
     const [password, setPassword] = useState<string>("Password@123");
     const [recaptcha, setRecaptcha] = useState<string>("");
     const [signing, setSigning] = useState<boolean>(false);
+    const { setLoading } = useContext(LayoutContext);
     const submitHandler = () => {
         if (email.trim() !== "" && password.trim() !== "") {
             (async () => {
+                setLoading(true);
                 setSigning(true);
                 let res = await altbaseService.login({email, password});
                 if (res.success) {
@@ -39,6 +42,7 @@ const Login = () => {
                     toast.error(res.message);
                 }
                 setSigning(false);
+                setLoading(false);
             })();
         } else {
             toast.error("Email and password are necessary fields");

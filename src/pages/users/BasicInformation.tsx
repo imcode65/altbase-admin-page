@@ -1,22 +1,47 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import LabelComponent from 'components/atoms/LabelComponent';
 import Button2 from 'components/atoms/Button2';
 import XLogo from 'assets/imgs/XLogo.png';
 
-const BasicInformation = () => {
+export interface IBasicInformation {
+    email: string;
+    emailStatus: string;
+    secret: string;
+    lastSeen: string;
+    invitationCode: string;
+    status: boolean;
+    invitedBy: string;
+    uuid: string;
+    role: string;
+    authentication: boolean;
+    lastLogin: string;
+}
+const BasicInformation = (props: IBasicInformation) => {
     const navigate = useNavigate();
-    const [email, setEmail] = useState<string>("KalBet0605@gmaill.com");
-    const [emailStatus, setEmailStatus] = useState<string>("on 2022-03-25T20:35:53.000Z");
-    const [secret, setSecret] = useState<string>("NA");
-    const [lastSeen, setLastSeen] = useState<string>("NA");
-    const [invitationCode, setInvitationCode] = useState<string>("e4q6hyly");
-    const [status, setStatus] = useState<boolean>(true);
-    const [invitedBy, setInvitedBy] = useState<string>("ADMIN");
-    const [uuid, setUuid] = useState<string>("2faf4a40-ac79-11ec-94a0-b7886614fadb");
-    const [role, setRole] = useState<string>("user");
-    const [authentication, setAuthentication] = useState<boolean>(false);
-    const [lastLogin, setLastLogin] = useState<string>("NA");
+    useEffect(() => {
+        setEmail(props.email);
+        setEmailStatus(props.emailStatus);
+        setSecret(props.secret);
+        setLastSeen(props.lastSeen);
+        setInvitationCode(props.invitationCode);
+        setStatus(props.status);
+        setInvitedBy(props.invitedBy);
+        setUuid(props.uuid);
+        setRole(props.role);
+        setLastLogin(props.lastLogin);
+    }, [props]);
+    const [email, setEmail] = useState<string>(props.email);
+    const [emailStatus, setEmailStatus] = useState<string>(props.emailStatus);
+    const [secret, setSecret] = useState<string>(props.secret);
+    const [lastSeen, setLastSeen] = useState<string>(props.lastSeen);
+    const [invitationCode, setInvitationCode] = useState<string>(props.invitationCode);
+    const [status, setStatus] = useState<boolean>(props.status);
+    const [invitedBy, setInvitedBy] = useState<string>(props.invitedBy);
+    const [uuid, setUuid] = useState<string>(props.uuid);
+    const [role, setRole] = useState<string>(props.role);
+    const [authentication, setAuthentication] = useState<boolean>(props.authentication);
+    const [lastLogin, setLastLogin] = useState<string>(props.lastLogin);
 
     const onBack = () => {
         navigate(-1);
@@ -33,7 +58,7 @@ const BasicInformation = () => {
                 </div>
                 <div>
                     <LabelComponent title="Email" text={email}></LabelComponent>
-                    <LabelComponent title="Email Verification Status" text={emailStatus} bage_class={`bg-green-500`} bage_text="Verified"></LabelComponent>
+                    <LabelComponent title="Email Verification Status" text={emailStatus ? "on " : "" + emailStatus} bage_class={`bg-green-500`} bage_text={emailStatus ? "Verified" : ""}></LabelComponent>
                     <LabelComponent title="Two Factor Secret" text={secret}></LabelComponent>
                     <LabelComponent title="Last seen at" text={lastSeen}></LabelComponent>
                 </div>

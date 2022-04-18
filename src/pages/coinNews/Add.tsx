@@ -8,15 +8,20 @@ import SwitchButton from 'components/atoms/SwitchButton';
 import Button1 from 'components/atoms/Button1';
 import Button2 from 'components/atoms/Button2';
 import toast from 'react-hot-toast';
+import XLogo from 'assets/imgs/XLogo.png';
+import altbaseService, { ICoinNews } from "services/altbaseService";
 
 const Add = () => {
     const navigate = useNavigate();
     const [title, setTitle] = useState<string>("");
     const [description, setDescription] = useState<string>("");
-    const [status, setStatus] = useState<boolean>(true);
+    const [is_active, setIsActive] = useState<boolean>(true);
+    const [coins, setCoins] = useState<string>("");
+    const [banner_url, setBannerUrl] = useState<string>(XLogo);
+    const [thumbnail_url, setThumbnailUrl] = useState<string>(XLogo);
 
     const onChangeStatus = (newStatus: boolean) => {
-        setStatus(newStatus);
+        setIsActive(newStatus);
         return newStatus;
     }
 
@@ -24,14 +29,25 @@ const Add = () => {
         navigate(-1);
     }
 
-    const saveHandler = () => {
-        toast.success('Successfully toasted!')
+    const saveHandler = async() => {
+        let { status, content, message } = await altbaseService.addCoinNews({
+            title: title,
+            coin_id: coins === "Altbase" ? "1" : "0",
+            description: description,
+            banner_url: banner_url,
+            is_active: is_active ? "1" : "0"
+        })
+        if (status === "success") {
+            toast.success(message);
+        } else {
+            toast.error(message);
+        }
     }
 
     return (
         <div className="p-4 bg-white mt-8">
             <div className="grid grid-cols-2 gap-4">
-                <Select3 label="Coins *" list={["Select Type", "All", "Individual"]}></Select3>
+                <Select3 label="Coins *" list={["Select Type", "DFS MAFIA", "Altbase"]} onChangeHandler={setCoins} value={coins}></Select3>
                 <LabelInput1 label="Title *" placeholder="Enter the Title" text={title} onChangeHandler={setTitle}></LabelInput1>
             </div>
             <div className="mt-4">
@@ -39,11 +55,11 @@ const Add = () => {
             </div>
             <div className="mt-4">
                 <p>Thumbnail</p>
-                <LogoUploader />
+                <LogoUploader url={thumbnail_url}/>
             </div>
             <div className="mt-4">
                 <p>Banner</p>
-                <LogoUploader />
+                <LogoUploader url={banner_url}/>
             </div>
             <div>
                 Status

@@ -1,14 +1,19 @@
-import { useState } from 'react';
-import { useNavigate } from 'react-router-dom';
+import { useState, useEffect } from 'react';
+import { useNavigate, useParams } from 'react-router-dom';
 import LabelComponent from 'components/atoms/LabelComponent';
 import Button2 from 'components/atoms/Button2';
 import { prefix } from "constants/menuInfo";
 import XLogo from 'assets/imgs/XLogo.png';
+import toast from 'react-hot-toast';
+import altbaseService from "services/altbaseService";
 
 const View = () => {
     const navigate = useNavigate();
-    const [url, setUrl] = useState<string>("https://coinmarketcap.com/currencies/tether/");
-    const [text, setText] = useState<string>("Tether (USDT) is a cryptocurrency with a value meant to mirror the value of the U.S. dollar. The idea was to create a stable cryptocurrency that can be used like digital dollars. Coins that serve this purpose of being a stable dollar substitute are called “stable coins.” Tether is the most popular stable coin and even acts as a dollar replacement on many popular exchanges! According to their site, Tether converts cash into digital currency, to anchor or “tether” the value of the coin to the price of national currencies like the US dollar, the Euro, and the Yen. Like other cryptos it uses blockchain. Unlike other cryptos, it is [according to the official Tether site] “100% backed by USD” (USD is held in reserve).");
+    const { id } = useParams();
+    const [name, setName] = useState<string>("");
+    const [symbol, setSymbol] = useState<string>("");
+    const [url, setUrl] = useState<string>("");
+    const [text, setText] = useState<string>("");
     const [address, setAddress] = useState<string>("0x55d398326f99059ff775485246999027b3197955");
     const [category, setCategory] = useState<string>("Tether USD");
     const [routerPathAddress, setRouterPathAddress] = useState<string>("0xbb4cdb9cbd36b01bd1cbaebf2de08d9173bc095c,0x55d398326f99059ff775485246999027b3197955");
@@ -18,19 +23,41 @@ const View = () => {
     const [criteria, setCriteria] = useState<string>("0");
     const [createdAt, setCreatedAt] = useState<string>("Mar 16, 2022, 9:14:10 AM");
     const [socialMediaLink, setSocialMediaLink] = useState<string>("NA");
+    const [website, setWebsite] = useState<string>("");
+    const [isMarket, setIsMarket] = useState<number>(1);
 
     const onBack = () => {
         navigate(-1);
     }
-    
+    useEffect(() => {
+        (async () => {
+            let { status, content, message } = await altbaseService.getCoinById(parseInt(id || "0"))
+            if (status === "success") {
+                setAddress(content.contract_address)
+                setName(content.name)
+                setSymbol(content.symbol)
+                setRouterPathAddress(content.pancake_router_path_address)
+                setCategory(content.coinCategory.title)
+                setWebsite(content.website_url)
+                setText(content.about)
+                setCriteria(content.buy_criteria)
+                setIsMarket(content.is_active)
+                setUrl(content.coinmarketcap_listed_url)
+                // setSocialMedias(JSON.parse(content.social_media_links).map((single: any) => ({media: single.socialMediaType.charAt(0).toUpperCase() + single.socialMediaType.slice(1), link: single.socialMediaLink})))
+                setStatus(content.is_active);
+            } else {
+                toast.error(message);
+            }
+        })()
+    }, []);
     return (
         <div className="p-4 bg-white mt-8">
             <div className="grid md:grid-cols-2">
                 <div className="flex justify-center items-center">
                     <img className='h-8 m-2 rounded-md overflow-hidden' src={XLogo} alt="XLogo" />
-                    <LabelComponent title="Tether USD:" text={"USDT"}></LabelComponent>
+                    <LabelComponent title={symbol} text={name}></LabelComponent>
                 </div>
-                <LabelComponent title="Tether USD:" text={url}></LabelComponent>
+                <LabelComponent title={symbol} text={url}></LabelComponent>
             </div>
             <LabelComponent title="About" text={text}></LabelComponent>
             <div className="grid md:grid-cols-2">

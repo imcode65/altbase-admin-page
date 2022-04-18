@@ -5,13 +5,22 @@ import Button1 from "components/atoms/Button1";
 import IconEnvelope from "components/icons/IconEnvelope";
 import { useState } from "react";
 import { Link } from "react-router-dom";
+import toast from "react-hot-toast";
+import altbaseService from "services/altbaseService";
 
 const ForgotPassword = () => {
     const [email, setEmail] = useState<string>("");
     const submitHandler = () => {
         if (email.trim() !== "") {
             (async () => {
-
+                const { status, message } = await altbaseService.forgotPassword({
+                    email
+                })
+                if (status === "success") {
+                    toast.success(message);
+                } else {
+                    toast.error(message);
+                }
             })();
         }
     }

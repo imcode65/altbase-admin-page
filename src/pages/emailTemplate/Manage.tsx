@@ -70,6 +70,7 @@ const Manage = () => {
     const [totalPages, setTotalPages] = useState<number>(0);
     const [totalCount, setTotalCount] = useState<number>(0);
     const [totalSize, setTotalSize] = useState<number>(0);
+    const [loading, setLoading] = useState<boolean>(false);
     useEffect(() => {
         (async () => {
             setLoading(true);
@@ -109,7 +110,6 @@ const Manage = () => {
             setLoading(false);
         })();
     }, [perPage, page, searchName, searchSlug, searchSubject, searchFrom, searchFromEmail]);
-    const [loading, setLoading] = useState<boolean>(false);
     return (
         <div>
             <SearchPanelEmailTemplate
@@ -129,11 +129,11 @@ const Manage = () => {
                 fields={tableFields}
                 datas={tableDatas}
                 currentPage={page}
-                changeCurrentPageHandler={setPage}
-                changeCountPerPageHandler={setPerPage}
                 totalPages={totalPages}
                 totalCounts={totalSize}
                 propLoading={loading}
+                changeCurrentPageHandler={setPage}
+                changeCountPerPageHandler={setPerPage}
                 additionalBtns={[{
                     text: "Add",
                     clickHandler: () => navigate(`${ prefix }/email-template/add`)

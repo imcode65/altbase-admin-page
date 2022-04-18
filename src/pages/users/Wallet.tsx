@@ -1,10 +1,15 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import LabelComponent from 'components/atoms/LabelComponent';
 import Button2 from 'components/atoms/Button2';
 
-const Wallet = () => {
+const Wallet = (props: {
+    walletAddress: string;
+}) => {
     const navigate = useNavigate();
+    useEffect(() => {
+        setWalletAddress(props.walletAddress);
+    }, [props.walletAddress]);
     const [walletAddress, setWalletAddress] = useState<string>("");
 
     const onBack = () => {

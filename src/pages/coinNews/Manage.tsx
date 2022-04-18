@@ -7,6 +7,8 @@ import SwitchButton from 'components/atoms/SwitchButton';
 import { SearchPanelCoinNews } from 'components/moleculars/SearchPanel';
 import altbaseService, { ICoinNews } from "services/altbaseService";
 
+const coin_category = ["DFS MAFIA", "Altbase"]
+
 const Manage = () => {
     const navigate = useNavigate();
     const [tableFields, setTableFields] = useState<IField[]>([
@@ -18,7 +20,7 @@ const Manage = () => {
             code: "title"
         }, {
             text: "Coin",
-            code: "coin"
+            code: "coin_id"
         }, {
             text: "Status",
             code: "status"
@@ -71,14 +73,19 @@ const Manage = () => {
                 setTotalSize(content.pagination.totalSize);
                 setTableDatas(() => content.records.map((record: ICoinNews) => ({
                     ...record,
+                    coin_id: parseInt(record.coin_id) > 2 ? record.coin_id : coin_category[parseInt(record.coin_id)],
                     status: <SwitchButton onChangeHandler={async (x: boolean) => {
                         return x;
                     }} value={Boolean(record.is_active)}/>,
                     action: {
                         edit: true,
                         editHandler: (id: number) => {
-                            navigate(`${ prefix }/coin-category/edit/${ id }`);
-                        }
+                            navigate(`${ prefix }/coin-news/edit/${ id }`);
+                        },
+                        view: true,
+                        viewHandler: (id: number) => {
+                            navigate(`${ prefix }/coin-news/view/${ id }`);
+                        },
                     }
                 })).sort((a: ICoinNews, b: ICoinNews) => ((a?.id || 0) - (b?.id || 0))))
             }

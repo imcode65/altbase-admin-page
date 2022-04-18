@@ -1,5 +1,5 @@
-import { useState } from 'react';
-import { useNavigate } from 'react-router-dom';
+import { useState, useEffect } from 'react';
+import { useNavigate, useParams } from 'react-router-dom';
 
 import LabelInput1 from 'components/atoms/LabelInput1';
 import LabelComponent from 'components/atoms/LabelComponent';
@@ -15,25 +15,29 @@ import { v4 as uuidv4 } from 'uuid';
 import Select2 from 'components/atoms/Select2';
 import Input1 from 'components/atoms/Input1';
 import IconClose from 'components/icons/IconClose';
+import toast from 'react-hot-toast';
+import altbaseService from "services/altbaseService";
 
 const yesId = uuidv4();
 const noId = uuidv4();
-const socialMediaList = [
-    "Linkedin",
-    "Twitter",
-    "Discord",
-    "Telegram",
-    "Whatsapp",
-    "Skype",
-    "Email",
-];
 interface ISocialMedia {
     media: string;
     link: string;
 }
 
 const Edit = () => {
+    const [socialMediaList, setSocialMediaList] = useState<string[]>([
+        "Linkedin",
+        "Twitter",
+        "Discord",
+        "Telegram",
+        "Whatsapp",
+        "Skype",
+        "Email",
+        "Github"
+    ]);
     const navigate = useNavigate();
+    const { id } = useParams();
     const [address, setAddress] = useState<string>("0x55d398326f99059ff775485246999027b3197955");
     const [name, setName] = useState<string>("Tether USD");
     const [symbol, setSymbol] = useState<string>("USDT");
@@ -45,7 +49,7 @@ const Edit = () => {
     const [isMarket, setIsMarket] = useState<boolean>(true);
     const [url, setUrl] = useState<string>("https://coinmarketcap.com/currencies/tether/");
     const [socialMedias, setSocialMedias] = useState<ISocialMedia[]>([]);
-    const [status, setStatus] = useState<boolean>(true);
+    const [status1, setStatus] = useState<boolean>(true);
 
     const onChangeStatus = (newStatus: boolean) => {
         setStatus(newStatus);
@@ -68,10 +72,58 @@ const Edit = () => {
         navigate(-1);
     }
 
-    const onSave = () => {
-
+    const onSave = async () => {
+        let { status, content, message } = await altbaseService.updateCoin(parseInt(id || "0"), {
+            contract_address: address,
+            name: name,
+            symbol: symbol,
+            pancake_router_path_address: routerPathAddress,
+            coinCategory: {
+                title: category
+            },
+            website_url: website,
+            about: aboutText,
+            buy_criteria: criteria,
+            is_active: status1 ? 1 : 0,
+        })
+        if (status === "success") {
+            toast.success(message);
+        } else {
+            toast.error(message);
+        }
     }
 
+    useEffect(() => {
+        (async () => {
+            let { status, content, message } = await altbaseService.getCoinById(parseInt(id || "0"))
+            if (status === "success") {
+                setAddress(content.contract_address)
+                setName(content.name)
+                setSymbol(content.symbol)
+                setRouterPathAddress(content.pancake_router_path_address)
+                setCategory(content.coinCategory.title)
+                setWebsite(content.website_url)
+                setAboutText(content.about)
+                setCriteria(content.buy_criteria)
+                setIsMarket(content.is_active)
+                setUrl(content.coinmarketcap_listed_url)
+                setSocialMedias(JSON.parse(content.social_media_links).map((single: any) => ({media: single.socialMediaType.charAt(0).toUpperCase() + single.socialMediaType.slice(1), link: single.socialMediaLink})))
+                setStatus(content.is_active);
+            } else {
+                toast.error(message);
+            }
+        })()
+    }, []);
+    useEffect(() => {
+        (async () => {
+            let { status, content, message } = await altbaseService.getSocialMediaType();
+            if (status === "success") {
+                setSocialMediaList(content.map((social: any) => social.type))
+            } else {
+                toast.error(message);
+            }
+        })()
+    }, []);
     return (
         <div className="p-4 bg-white mt-8">
             <div className="grid md:grid-cols-2 gap-2">
