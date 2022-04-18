@@ -10,6 +10,7 @@ import Button2 from 'components/atoms/Button2';
 import toast from 'react-hot-toast';
 import XLogo from 'assets/imgs/XLogo.png';
 import altbaseService, { ICoinNews } from "services/altbaseService";
+import CoinNews from './Index';
 
 const Add = () => {
     const navigate = useNavigate();
@@ -35,7 +36,14 @@ const Add = () => {
             coin_id: coins === "Altbase" ? "1" : "0",
             description: description,
             banner_url: banner_url,
-            is_active: is_active ? "1" : "0"
+            is_active: is_active ? "1" : "0",
+            coinDetails: {
+                "id": 44,
+                "coin_category_id": 12,
+                "name": "Bunny Token",
+                "symbol": "BUNNY",
+                "is_active": 1
+            }
         })
         if (status === "success") {
             toast.success(message);
@@ -63,7 +71,7 @@ const Add = () => {
             </div>
             <div>
                 Status
-                <SwitchButton onChangeHandler={onChangeStatus}/>
+                <SwitchButton onChangeHandler={onChangeStatus} />
             </div>
             <div className='w-full flex justify-center'>
                 <Button1 className='w-32 mr-2' text='Save' confirming onClick={saveHandler} />

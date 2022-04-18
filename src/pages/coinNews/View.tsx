@@ -24,7 +24,6 @@ const View = () => {
         (async() => {
             let { status, content, message } = await altbaseService.getCoinNewsById(parseInt(id || "0"))
             if (status === "success") {
-                console.log(content);
                 setCoin(content.coin_id);
                 setTitle(content.title);
                 setStatus(content.is_active === 1 ? "active" : "Deactive");

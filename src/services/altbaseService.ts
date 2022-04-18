@@ -99,7 +99,7 @@ export interface ICMS {
     id?: number;
     title: string;
     slug?: string;
-    is_active: string;
+    is_active?: string;
     content?: string;
 }
 export interface ICoinCategory {
@@ -503,6 +503,7 @@ export default {
     async addCMS(body: ICMS) {
         try {
             let res = await altbaseServer.post(`admin/cms/`, body);
+            console.log(body);
             let { data, status, message }: { data: ICMS; status: string; message: string } = res.data;
             const result = {
                 status: status,
@@ -663,12 +664,11 @@ export default {
             })
         }
     },
-
     async addCoinNews(body: ICoinNews) {
         try {
             let res = await altbaseServer.post(`admin/coin_news/`, body);
             console.log(body);
-            let { data, status, message }: { data: ICoinCategory; status: string; message: string } = res.data;
+            let { data, status, message }: { data: ICoinNews; status: string; message: string } = res.data;
             const result = {
                 status: status,
                 message: message,
@@ -680,6 +680,24 @@ export default {
             return ({
                 status: "fail",
                 message: "Failed to add coin category",
+                content: err
+            })
+        }
+    },
+    async updateCoinNews(id: number, body: ICoinNews) {
+        try {
+            let res = await altbaseServer.put(`admin/coin_news/${id}`, body);
+            let { data, status, message }: { data: ICoinCategory; status: string; message: string } = res.data;
+            const result = {
+                status: status,
+                message: message,
+                content: data
+            }
+            return result;
+        } catch (err: any) {
+            return ({
+                status: "fail",
+                message: "Failed to update coin category",
                 content: err
             })
         }
